@@ -1,9 +1,9 @@
 /*
- * WARNING: THIS IS A MODIFIED COPY OF VOYEUR.JS
+ * WARNING: THIS IS A MODIFIED COPY OF HTML
  * SPECIFICALLY FOR THIS DEMO. DO NOT USE UNLESS
  * YOU WANT VERY BAD THINGS TO HAPPEN.
  *
- * This copy of Voyeur.js is used in the demo frame
+ * This copy of HTML is used in the demo frame
  * It hooks into the element creation and selection
  * to allow for some pretty highlighting.
  */
@@ -13,28 +13,28 @@ var onElementSelected, onElementCreated;
 	"use strict";
 
 	/**
-	 * Voyeur "constructor". Never initilize with the new keyword.
-	 * @param {HTMLElement|Array of elements} nodes Array of nodes to create a Voyeur object with
-	 * @return {Voyeur} Voyeur extended Node
+	 * HTML "constructor". Never initilize with the new keyword.
+	 * @param {HTMLElement|Array of elements} nodes Array of nodes to create a HTML object with
+	 * @return {HTML} HTML extended Node
 	 */
-	var Voyeur = function(nodes) {
-		if(nodes instanceof HTMLElement) Voyeur.extendChildren(nodes); //Single node so extend it's children
+	var HTML = function(nodes) {
+		if(nodes instanceof HTMLElement) HTML.extendChildren(nodes); //Single node so extend it's children
 
 		//Create the `create` instance
-		nodes.create = Voyeur.extendTags({}, function(tag) {
-			return Voyeur.create.bind({tag: tag, parents: nodes})()
+		nodes.create = HTML.extendTags({}, function(tag) {
+			return HTML.create.bind({tag: tag, parents: nodes})()
 		});
 
 		/**
 		 * Use the current scope
 		 * @param  {Function} fn The callback function with the current scope sent as parameter
-		 * @return {Voyeur}      The root node
+		 * @return {HTML}      The root node
 		 */
 		nodes.use = function(fn) {
 			if(fn) {
 				if(nodes instanceof Array) {
 					nodes.forEach(function(elem, i) {
-						fn.call(window, Voyeur(elem), i);
+						fn.call(window, HTML(elem), i);
 					})
 				} else {
 					fn.call(window, nodes);
@@ -49,7 +49,7 @@ var onElementSelected, onElementCreated;
 		/**
 		 * Find via selector inside the current scope
 		 * @param  {String} selector The selector
-		 * @return {Voyeur}          The new Voyeur object
+		 * @return {HTML}          The new HTML object
 		 */
 		nodes.find = function(selector) {
 			var children;
@@ -63,7 +63,7 @@ var onElementSelected, onElementCreated;
 			}
 
 			if(children.length) {
-				var e = Voyeur(children.length == 1 ? children[0] : children);
+				var e = HTML(children.length == 1 ? children[0] : children);
 				if(onElementSelected) onElementSelected(e);
 				return e;
 			}
@@ -73,12 +73,12 @@ var onElementSelected, onElementCreated;
 		 * Select part of an array
 		 * @param  {number} u The start index
 		 * @param  {number} v The end index (optional)
-		 * @return {Voyeur}   The selected nodes
+		 * @return {HTML}   The selected nodes
 		 */
 		nodes.eq = function(u, v) {
 			if(nodes instanceof Array) {
 				var newNodes = nodes.slice(u, v || (u + 1));
-				var e = Voyeur(newNodes.length == 1 ? newNodes[0] : newNodes);
+				var e = HTML(newNodes.length == 1 ? newNodes[0] : newNodes);
 				if(onElementSelected) onElementSelected(e);
 				return e;
 			} else {
@@ -97,7 +97,7 @@ var onElementSelected, onElementCreated;
 	 * @param {Array} children An array of children to expand to
 	 * @return {Object}      The object extended
 	 */
-	Voyeur.extendChildren = function(node, children) {
+	HTML.extendChildren = function(node, children) {
 		children = Array.prototype.slice.call(children || node.children);
 
 		//The tag map
@@ -115,7 +115,7 @@ var onElementSelected, onElementCreated;
 			(function(key) { //Closure required
 				Object.defineProperty(node, key, {
 					get: function() {
-						var e = Voyeur(map[key].length == 1 ? map[key][0] : map[key]);
+						var e = HTML(map[key].length == 1 ? map[key][0] : map[key]);
 						if(onElementSelected) onElementSelected(e);
 						return e;
 					},
@@ -127,19 +127,19 @@ var onElementSelected, onElementCreated;
 	}
 
 	/**
-	 * Voyeur.create recursive function
+	 * HTML.create recursive function
 	 * @param  {Array|HTMLElement} parents The array of parents|htmlelement
 	 * @return {Object}         A create object
 	 */
-	Voyeur.create = function(parents) {
-		var self = parents || Voyeur.createElement(this.parents, this.tag);
+	HTML.create = function(parents) {
+		var self = parents || HTML.createElement(this.parents, this.tag);
 		self.root = this.root || self;
 		self.parents = this.parents;
 
-		Voyeur.extendTags(self, function(tag) {
-			Voyeur.unextendTags(self);
+		HTML.extendTags(self, function(tag) {
+			HTML.unextendTags(self);
 
-			return Voyeur.create.bind({
+			return HTML.create.bind({
 				root: self.root,
 				parents: self,
 				tag: tag
@@ -150,16 +150,16 @@ var onElementSelected, onElementCreated;
 			if(fn) {
 				if(self instanceof Array) {
 					self.forEach(function(elem, i) {
-						fn.call(window, Voyeur(elem), i);
+						fn.call(window, HTML(elem), i);
 					})
 				} else {
-					fn.call(window, Voyeur(self));
+					fn.call(window, HTML(self));
 				}
 			}
 
-			Voyeur.unextendTags(self.root);
+			HTML.unextendTags(self.root);
 
-			return Voyeur(self.root);
+			return HTML(self.root);
 		};
 
 		self.mult = function(factor) {
@@ -168,16 +168,16 @@ var onElementSelected, onElementCreated;
 
 			var elems = [];
 			for(var i = 0; i < factor; i++) {
-				var elem = Voyeur.createElement(self.parents, self.tagName.toLowerCase());
+				var elem = HTML.createElement(self.parents, self.tagName.toLowerCase());
 				elems.push(elem);
 			}
-			return Voyeur.create.bind({
+			return HTML.create.bind({
 				root: self.root
 			})(elems);
 		};
 
 		self.special = function(tag) {
-			return Voyeur.create.bind({
+			return HTML.create.bind({
 				root: self.root,
 				parents: self,
 				tag: tag
@@ -194,7 +194,7 @@ var onElementSelected, onElementCreated;
 	 * @param  {String} tag     The HTML element tag
 	 * @return {Array|HTMLElement}         The array of new parents or element
 	 */
-	Voyeur.createElement = function(parents, tag) {
+	HTML.createElement = function(parents, tag) {
 		if(parents) {
 			if(parents instanceof Array) {
 				var newParents = [];
@@ -221,16 +221,16 @@ var onElementSelected, onElementCreated;
 		}
 	};
 
-	Voyeur.nodes = "a,abbr,acronym,address,applet,area,article,aside,audio,b,base,basefont,bdi,bdo,bgsound,big,blink,blockquote,br,button,canvas,caption,center,cite,code,col,colgroup,data,datalist,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,font,footer,form,frame,frameset,h1,h2,h3,h4,h5,h6,header,hgroup,hr,i,iframe,img,input,ins,isindex,kbd,keygen,label,legend,li,link,listing,main,map,mark,marquee,menu,menuitem,meta,meter,nav,nobr,noframes,noscript,object,ol,optgroup,option,output,p,param,plaintext,pre,progress,q,rp,rt,ruby,s,samp,section,select,small,source,spacer,span,strike,strong,sub,summary,sup,table,tbody,td,textarea,tfoot,th,thead,time,tr,track,tt,u,ul,var,video,wbr,xmp".split(",");
+	HTML.nodes = "a,abbr,acronym,address,applet,area,article,aside,audio,b,base,basefont,bdi,bdo,bgsound,big,blink,blockquote,br,button,canvas,caption,center,cite,code,col,colgroup,data,datalist,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,font,footer,form,frame,frameset,h1,h2,h3,h4,h5,h6,header,hgroup,hr,i,iframe,img,input,ins,isindex,kbd,keygen,label,legend,li,link,listing,main,map,mark,marquee,menu,menuitem,meta,meter,nav,nobr,noframes,noscript,object,ol,optgroup,option,output,p,param,plaintext,pre,progress,q,rp,rt,ruby,s,samp,section,select,small,source,spacer,span,strike,strong,sub,summary,sup,table,tbody,td,textarea,tfoot,th,thead,time,tr,track,tt,u,ul,var,video,wbr,xmp".split(",");
 
 	/**
-	 * Extends all of the Voyeur.nodes tags onto an object via a getter
+	 * Extends all of the HTML.nodes tags onto an object via a getter
 	 * @param  {Object}   obj The reciever object
 	 * @param  {Function} fn  The function on get with `tag` sent to it
 	 * @return {Object}       The reciever object
 	 */
-	Voyeur.extendTags = function(obj, fn) {
-		Voyeur.nodes.forEach(function(tag) {
+	HTML.extendTags = function(obj, fn) {
+		HTML.nodes.forEach(function(tag) {
 			Object.defineProperty(obj, tag, {
 				get: function() {
 					return fn.call(obj, tag);
@@ -243,25 +243,25 @@ var onElementSelected, onElementCreated;
 		return obj;
 	};
 
-	Voyeur.unextendTags = function(obj) {
-		Voyeur.nodes.forEach(function(tag) {
+	HTML.unextendTags = function(obj) {
+		HTML.nodes.forEach(function(tag) {
 			delete obj[tag];
 		});
 
 		return obj;
 	};
 
-	//Initilize Voyeur on the document
-	window.Voyeur = Voyeur(document.getElementById("shadow-dom"));
+	//Initilize HTML on the document
+	window.HTML = HTML(document.getElementById("shadow-dom"));
 
-	//Create for the root Voyeur
-	window.Voyeur.create = Voyeur.extendTags({}, function(tag) {
-		return Voyeur.create.bind({tag: tag})()
+	//Create for the root HTML
+	window.HTML.create = HTML.extendTags({}, function(tag) {
+		return HTML.create.bind({tag: tag})()
 	});
 
 	//Special create function 
-	window.Voyeur.create.special = function(tag) {
-		return Voyeur.create.bind({
+	window.HTML.create.special = function(tag) {
+		return HTML.create.bind({
 			tag: tag
 		})();
 	};

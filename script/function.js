@@ -2,8 +2,8 @@
 var frame, input;
 
 document.addEventListener("DOMContentLoaded", function() {
-	input = Voyeur.find("#input");
-	frame = Voyeur.find("#output").iframe;
+	input = HTML.find("#input");
+	frame = HTML.find("#output").iframe;
 
 	//The intent edit
 	var timeout;
@@ -73,17 +73,17 @@ var Storyboard = {
 	},
 
 	story: [
-		"Voyeur.div",
-		"Voyeur.div.section",
-		"Voyeur.div.section.eq(1)",
-		"Voyeur.div.section.eq(1).ul.li",
-		"Voyeur.div.section.eq(1).ul.li.use(function(li, i) {\n\tli.textContent = \"List item #\" + i; \n});",
-		"Voyeur.find(\"#empty\")",
-		"Voyeur.find(\"#empty\").create.h1",
-		"Voyeur.find(\"#empty\").create.h1.em\n\t.textContent = \"Another h1\";",
-		"Voyeur.find(\"#empty\").create.h3.mult(3)",
-		"Voyeur.find(\"#empty\").innerHTML = \"\"",
-		"Voyeur.find(\"#empty\").create.ul.li.mult(10)\n\t.use(function(li, i) {\n\tli.textContent = \"More list items!\"; \n});",
+		"HTML.div",
+		"HTML.div.section",
+		"HTML.div.section.eq(1)",
+		"HTML.div.section.eq(1).ul.li",
+		"HTML.div.section.eq(1).ul.li.use(function(li, i) {\n\tli.textContent = \"List item #\" + i; \n});",
+		"HTML.find(\"#empty\")",
+		"HTML.find(\"#empty\").create.h1",
+		"HTML.find(\"#empty\").create.h1.em\n\t.textContent = \"Another h1\";",
+		"HTML.find(\"#empty\").create.h3.mult(3)",
+		"HTML.find(\"#empty\").innerHTML = \"\"",
+		"HTML.find(\"#empty\").create.ul.li.mult(10)\n\t.use(function(li, i) {\n\tli.textContent = \"More list items!\"; \n});",
 		"Now you try it out for yourself! Edit me."
 	]
 };
