@@ -1,16 +1,14 @@
-@import url(http://fonts.googleapis.com/css?family=Petit+Formal+Script);
-
 @import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
 
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,800,700,300);
 body {
   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   font-weight: 300;
-  background: #321e33;
+  background: #3d2828;
   color: #fff;
 }
 .wrapper {
-  width: 960px;
+  width: 85%;
   margin: 0 auto;
 }
 .columns div {
@@ -39,10 +37,6 @@ h2 {
   margin: 9px 18px;
 }
 h3 {
-  /*
-	font-family: Palatino Linotype, Book Antiqua, Palatino, serif;
-	letter-spacing: 4px; */
-
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
   font-size: 14px;
@@ -51,7 +45,7 @@ h3 {
 }
 hr {
   border: none;
-  border-bottom: 2px solid #291829;
+  border-bottom: 2px solid #342222;
   height: 3px;
   margin: 18px;
 }
@@ -59,40 +53,37 @@ hr.blank {
   opacity: 0;
 }
 a {
-  color: #b2555b;
+  color: #f6ece3;
 }
 p {
   margin: 9px 18px;
   line-height: 140%;
-  color: #d0b2d1;
+  color: #c8c0a6;
 }
 code {
-  background: #251626;
-  border: 1px solid #452946;
+  background: #312020;
+  border: 1px solid #4f3434;
   padding: 1px 6px;
   font-family: Monaco, sans-serif;
   font-size: 80%;
   border-radius: 4px;
-  color: #905793;
+  color: #996565;
 }
 header {
-  height: 360px;
-  background: url(../image/crissXcross.png);
-  border-bottom: 12px solid #161616;
+  background: #584221;
+  border-bottom: 4px solid #765139;
 }
 header h1 {
-  /*font-family: times;
-		font-size: 32px;
-		font-style: italic; */
-
   letter-spacing: -3px;
-  font-family: 'Petit Formal Script', cursive;
-  font-size: 40px;
-  padding: 24px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 3em;
+}
+header h3 {
+  margin: 2px;
 }
 header h5 {
   float: right;
-  margin: 36px 18px;
+  margin: 18px;
 }
 header h5 a {
   color: #fff;
@@ -101,29 +92,11 @@ header h5 a {
 header h5 a:hover {
   text-decoration: underline;
 }
-header .overhead h3 {
-  font-size: 50px;
-  text-transform: none;
-  font-family: Monaco, monospace;
-  text-align: center;
-  width: 200px;
-  margin: 0 auto;
-  margin-top: -20px;
-}
-header .overhead p {
-  margin-top: 30px;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
-  text-align: center;
-  font-size: 26px;
-  color: #fff;
-}
 .info {
   text-align: center;
 }
 .info p {
-  margin: 26px 0;
+  margin: 18px 0;
 }
 .banner {
   margin: 18px 0;
@@ -132,17 +105,17 @@ header .overhead p {
   width: 90%;
   margin: 0 18px;
   padding: 12px;
-  background: #603162;
-  border: 1px solid #3f2040;
+  background: #847851;
+  border: 1px solid #645b3e;
   outline: none;
   height: 180px;
   border-radius: 8px;
-  color: #e1cde2;
+  color: #fff;
   font-family: Monaco, monospace;
   font-size: 14px;
 }
 .banner #output {
-  background: #251626;
+  background: #312020;
   width: 96%;
   height: 208px;
   margin: 0 18px;
@@ -163,7 +136,7 @@ header .overhead p {
   margin: 9px 18px;
   margin-right: 9px;
   line-height: 140%;
-  color: #d0b2d1;
+  color: #d6c1c1;
 }
 .api article {
   padding-bottom: 18px;
@@ -202,7 +175,7 @@ header .overhead p {
   font-style: italic;
 }
 .api article .example {
-  background: #251626;
+  background: #312020;
   font-family: Monaco, monospace;
   font-size: 14px;
   margin: 18px 36px;
@@ -212,10 +185,10 @@ header .overhead p {
   border-radius: 8px;
 }
 .api article .example .comment {
-  color: #6f3236;
+  color: #dcb996;
 }
 .api article .example .comment * {
-  color: #6f3236 !important;
+  color: #dcb996 !important;
 }
 .api article .example .quote {
   color: #cd355b;
@@ -224,7 +197,7 @@ header .overhead p {
   color: #577ec4;
 }
 .api article .example .tab {
-  color: #3f2640;
+  color: #493030;
 }
 .faq p {
   margin-top: 4px;
@@ -236,15 +209,15 @@ header .overhead p {
   font-size: 110%;
 }
 footer {
-  background: url(../image/crissXcross.png);
-  border-top: 12px solid #161616;
+  background: #584221;
+  border-top: 12px solid #765139;
 }
 footer p {
   text-align: center;
-  color: #603162;
+  color: #847851;
   padding: 48px;
   margin: 0;
 }
 footer p a {
-  color: #6f3236;
+  color: #dcb996;
 }

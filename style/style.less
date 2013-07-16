@@ -1,15 +1,12 @@
-@import url(http://fonts.googleapis.com/css?family=Petit+Formal+Script);
 @import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,800,700,300);
 
-@black: #161616;
-@purple: #321E33;
-@lightpurple: #603162;
-@wine: #6F3236;
-@lightgray: #ededed;
-
-@content_width: 960px;
-@header_height: 360px;
+@border: #765139;
+@body: #3D2828;
+@darkBody: #584221;
+@lightBody: #847851;
+@action: #DCB996;
+@content_width: 85%;
 @margin: 18px;
 @padding: 12px;
 @radius: 8px;
@@ -17,27 +14,23 @@
 body {
 	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 	font-weight: 300;
-	background: @purple;
+	background: @body;
 	color: #fff;
 }
-
 .wrapper {
 	width: @content_width;
 	margin: 0 auto;
 }
-
 .columns div {
 	display: inline-block;
 	vertical-align: top;
 	zoom: 1; 
 	*display: inline; 
 }
-
 .half { width: 50%; }
 .third { width: 33%; }
 .fifth {width: 20%;}
 .fourfifths {width: 80%;}
-
 h2 {
 	font-family: "Montserrat", sans-serif;
 	font-weight: 400;
@@ -45,141 +38,96 @@ h2 {
 	text-transform: uppercase;
 	margin: @margin/2 @margin;
 }
-
 h3 {
-	/*
-	font-family: Palatino Linotype, Book Antiqua, Palatino, serif;
-	letter-spacing: 4px; */
 	font-family: "Montserrat", sans-serif;
 	font-weight: 400;
 	font-size: 14px;
 	text-transform: uppercase;
 	margin: @margin/2 @margin;
 }
-
 hr {
 	border: none;
-	border-bottom: 2px solid darken(@purple, 3%);
+	border-bottom: 2px solid darken(@body, 3%);
 	height: 3px;
 	margin: @margin;
 }
-
 hr.blank {
 	opacity: 0;
 }
-
 a {
-	color: lighten(@wine, 20%);
+	color: lighten(@action, 20%);
 }
-
 p {
 	margin: (@margin/2) @margin;
 	line-height: 140%;
-	color: lighten(@purple, 60%);
+	color: lighten(@lightBody, 30%);
 }
-
 code {
-	background: darken(@purple, 4%);
-	border: 1px solid lighten(@purple, 6%);
+	background: darken(@body, 4%);
+	border: 1px solid lighten(@body, 6%);
 	padding: 1px 6px;
 	font-family: Monaco, sans-serif;
 	font-size: 80%;
 	border-radius: @radius/2;
-	color: lighten(@purple, 30%);
+	color: lighten(@body, 30%);
 }
-
 header {
-	height: @header_height;
-	background: url(../image/crissXcross.png);
-	border-bottom: 12px solid @black;
-
+	background: @darkBody;
+	border-bottom: @padding / 3 solid @border;
 	h1 {
-		/*font-family: times;
-		font-size: 32px;
-		font-style: italic; */
 		letter-spacing: -3px; 
-		font-family: 'Petit Formal Script', cursive;
-		font-size: 40px;
-		padding: @padding * 2;
+		font-family: 'Open Sans', sans-serif;
+		font-size: 3em;
 	}
-
+	h3 {
+		margin: 2px;
+	}
 	h5 {
 		float: right;
-		margin: @margin*2 @margin;
-
+		margin: @margin;
 		a {
 			color: #fff;
 			text-decoration: none;
 		}
-
 		a:hover {
 			text-decoration: underline;
 		}
 	}
-
-	.overhead {
-		h3 {
-			font-size: 50px;
-			text-transform: none;
-			font-family: Monaco, monospace;
-			text-align: center;
-			width: 200px;
-			margin: 0 auto;
-			margin-top: -20px;
-		}
-
-		p {
-			margin-top: 30px;
-			font-family: "Montserrat", sans-serif;
-			font-weight: 700;
-			text-transform: uppercase;
-			text-align: center;
-			font-size: 26px;
-			color: #fff;
-		}
-	}
 }
-
 .info {
 	text-align: center;
-
 	p {
-		margin: (@margin + 8) 0;
+		margin: @margin 0;
 	}
 }
-
 .banner {
 	margin: @margin 0;
-
 	textarea {
 		width: 90%;
 		margin: 0 @margin;
 		padding: @padding;
-		background: @lightpurple;
-		border: 1px solid darken(@lightpurple, 10%);
+		background: @lightBody;
+		border: 1px solid darken(@lightBody, 10%);
 		outline: none;
 		height: 180px;
 		border-radius: @radius;
-		color: #e1cde2;
+		color: #fff;
 		font-family: Monaco, monospace;
 		font-size: 14px;
 	}
-
 	#output {
-		background: darken(@purple, 4%);
+		background: darken(@body, 4%);
 		width: 96%;
 		height: 184px + (@padding * 2);
 		margin: 0 @margin;
 		border-radius: @radius;
 		padding: 0 @padding/2;
-
 		iframe {
 			width: 100%;
 			height: inherit
 		}
 	}
 }
-
 .features {
 	h3 {
 		font-size: 22px;
@@ -187,66 +135,53 @@ header {
 		text-transform: none;
 		margin-bottom: @margin/2;
 	}
-
 	p {
 		margin: (@margin/2) @margin;
 		margin-right: (@margin/2);
 		line-height: 140%;
-		color: lighten(@purple, 60%);
+		color: lighten(@body, 60%);
 	}
 }
-
 .api {
-
 	article {
 		padding-bottom: @margin;
-
 		h4 {
 			font-family: Monaco, monospace;
 			margin: @margin;
 			font-size: 22px;
 			color: lighten(#777dc5, 10%);//lighten(#BB70BF, 10%);
-
 			.returns {
 				font-style: italic;
 				font-size: 90%;
 				color: darken(#777dc5, 10%); //#BB70BF;
 			}
-
 			.variable {
 				color: #777dc5;
 				font-weight: bold;
-
 				em {
 					font-style: italic;
 				}
 			}
-
 			.variable:before {
 				content: '<';
 			}
-
 			.variable:after {
 				content: '>';
 			}
-
 			.optional:before {
 				content: '[';
 			}
-
 			.optional:after {
 				content: ']';
 			}
 		}
-
 		p {
 			em {
 				font-style: italic;
 			}
 		}
-
 		.example {
-			background: darken(@purple, 4%);
+			background: darken(@body, 4%);
 			font-family: Monaco, monospace;
 			font-size: 14px;
 			margin: @margin @margin*2;
@@ -254,15 +189,12 @@ header {
 			color: #777dc5;
 			line-height: 130%;
 			border-radius: @radius;
-
 			.comment {
-				color: @wine;
-
+				color: @action;
 				* {
-					color: @wine !important;
+					color: @action !important;
 				}
 			}
-
 			.quote {
 				color: #cd355b;
 			}
@@ -270,39 +202,33 @@ header {
 			.keyword {
 				color: #577ec4;
 			}
-
 			.tab {
-				color: lighten(@purple, 4%);
+				color: lighten(@body, 4%);
 			}
 		}
 	}
 }
-
 .faq {
 	p {
 		margin-top: 4px;
 		margin-bottom: 28px;
 	}
-
 	.question {
 		font-weight: bold;
 		margin-bottom: 4px;
 		font-size: 110%;
 	}
 }
-
 footer {
-	background: url(../image/crissXcross.png);
-	border-top: 12px solid @black;
-
+	background: @darkBody;
+	border-top: 12px solid @border;
 	p {	
 		text-align: center;
-		color: @lightpurple;
+		color: @lightBody;
 		padding: @padding * 4;
 		margin: 0;
-
 		a {
-			color: @wine;
+			color: @action;
 		}
 	}
 }

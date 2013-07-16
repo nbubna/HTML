@@ -6,29 +6,23 @@
 		#shadow-dom {
 			display: none;
 		}
-
 		#text-dom {
 			font-family: Monaco, monospace;
-			font-size: 14px;
-			color: #bf72c5;
+			font-size: 0.75em;
+			color: #bbbbbb;
 		}
-
 		.markup {
-			color: #6f729f;
+			color: #666666;
 		}
-
 		.tag {
-			color: #777dc5;
+			color: #777777;
 		}
-
 		.attr {
-			color: #479dac;
+			color: #444444;
 		}
-
 		.string {
-			color: #9bb9bf;
+			color: #999999;
 		}
-
 		.highlight {
 			border-radius: 6px;
 			padding: 2px 0;
@@ -37,22 +31,18 @@
 			-o-animation: flash 1s normal;
 			animation: flash 1s normal;
 		}
-
 		@-webkit-keyframes flash {
 			from { background: #fff; }
 			to { background: transparent; }
 		}
-
 		@-moz-keyframes flash {
 			from { background: #fff; }
 			to { background: transparent; }
 		}
-
 		@-o-keyframes flash {
 			from { background: #fff; }
 			to { background: transparent; }
 		}
-
 		@keyframes flash {
 			from { background: #fff; }
 			to { background: transparent; }
@@ -64,7 +54,7 @@
 	<div>
 		<h1><em>Hello world!</em></h1>
 		<section id="empty"></section>
-		<section>
+		<section id="full">
 			<ul>
 				<li>List Item</li>
 				<li>List Item</li>
@@ -76,11 +66,10 @@
 </div>
 <div id="text-dom"></div>
 </body>
-<script src="HTML.modified.js" type="text/javascript"></script>
+<script src="../HTML.all.js" type="text/javascript"></script>
 <script src="HTML.stringify.js"></script>
 <script type="text/javascript">
-//Append in the text. I'm refraining from using HTML
-//due to the modified copy.
+//Append in the text. I'm refraining from using HTML due to the modified copy.
 
 var shadowDom = document.getElementById("shadow-dom"),
 	textDom = document.getElementById("text-dom");
@@ -113,5 +102,26 @@ function unhighlight(elements) {
 function displayHTML() {
 	textDom.innerHTML = shadowDom.children[0].stringify();
 }
+
+function modifyHTMLForDemo() {
+	var _nodeFn = HTML._.node;
+	HTML._.node = function() {
+		var el = _nodeFn.apply(this, arguments);
+		onElementSelected(el);
+		return el;
+	};
+	var _listFn = HTML._.list;
+	HTML._.list = function() {
+		var els = _listFn.apply(this, arguments);
+		onElementSelected(els);
+		return els;
+	}
+	Object.defineProperty(HTML, 'body', {
+		value: HTML._.node(shadowDom),
+		configurable: false
+	});
+}
+document.addEventListener("DOMContentLoaded", modifyHTMLForDemo);
+
 </script>
 </html>
