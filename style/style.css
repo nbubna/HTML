@@ -145,15 +145,15 @@ header h5 a:hover {
   font-family: Monaco, monospace;
   margin: 18px;
   font-size: 22px;
-  color: #9b9fd4;
+  color: #cfd59c;
 }
 .api article h4 .returns {
   font-style: italic;
   font-size: 90%;
-  color: #535bb6;
+  color: #b06646;
 }
 .api article h4 .variable {
-  color: #777dc5;
+  color: #829a1c;
   font-weight: bold;
 }
 .api article h4 .variable em {
@@ -180,21 +180,21 @@ header h5 a:hover {
   font-size: 14px;
   margin: 18px 36px;
   padding: 12px;
-  color: #777dc5;
+  color: #e8ae3b;
   line-height: 130%;
   border-radius: 8px;
 }
 .api article .example .comment {
-  color: #dcb996;
+  color: #feecc9;
 }
 .api article .example .comment * {
-  color: #dcb996 !important;
+  color: #feecc9 !important;
 }
 .api article .example .quote {
-  color: #cd355b;
+  color: #8c9d34;
 }
 .api article .example .keyword {
-  color: #577ec4;
+  color: #e0e4c0;
 }
 .api article .example .tab {
   color: #493030;

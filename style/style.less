@@ -6,6 +6,12 @@
 @darkBody: #584221;
 @lightBody: #847851;
 @action: #DCB996;
+@apiText: #CFD59C;
+@apiReturn: #B06646;
+@apiVariable: #829A1C;
+@apiExample: #E8AE3B;
+@apiQuote: #8C9D34;
+@apiComment: #FEECC9;
 @content_width: 85%;
 @margin: 18px;
 @padding: 12px;
@@ -149,14 +155,14 @@ header {
 			font-family: Monaco, monospace;
 			margin: @margin;
 			font-size: 22px;
-			color: lighten(#777dc5, 10%);//lighten(#BB70BF, 10%);
+			color: @apiText;
 			.returns {
 				font-style: italic;
 				font-size: 90%;
-				color: darken(#777dc5, 10%); //#BB70BF;
+				color: @apiReturn;
 			}
 			.variable {
-				color: #777dc5;
+				color: @apiVariable;
 				font-weight: bold;
 				em {
 					font-style: italic;
@@ -186,21 +192,21 @@ header {
 			font-size: 14px;
 			margin: @margin @margin*2;
 			padding: @padding;
-			color: #777dc5;
+			color: @apiExample;
 			line-height: 130%;
 			border-radius: @radius;
 			.comment {
-				color: @action;
+				color: @apiComment;
 				* {
-					color: @action !important;
+					color: @apiComment !important;
 				}
 			}
 			.quote {
-				color: #cd355b;
+				color: @apiQuote;
 			}
 
 			.keyword {
-				color: #577ec4;
+				color: lighten(@apiText, 10%);
 			}
 			.tab {
 				color: lighten(@body, 4%);
