@@ -21,7 +21,7 @@
 	<div class="content">
 		<div class="wrapper">
 			<div class="info">
-				<p>A simple, extensible way to traverse and use the DOM. <a href="https://raw.github.com/nbubna/HTML/master/dist/HTML.min.js">HTML.min.js (1.2kb)</a></p>
+				<p>A simple, extensible way to work directly with the DOM. <a href="https://rawgithub.com/nbubna/HTML/master/dist/HTML.all.min.js.gz">HTML.min.js (1.5kb)</a></p>
 			</div>
 			<div class="banner columns">
 				<div class="half">
@@ -48,30 +48,30 @@
 			<h2>FAQ</h2>
 			<div class="faq">
 				<p class="question">Which browsers does HTML support?</p>
-				<p>HTML supports all major browsers.</p>
+				<p>IE9+, Firefox, Safari, Chrome, Opera and the like.</p>
 				<p class="question">How does it work?</p>
 				<p>HTML works by utilizing object getter functions to expose an element's children via their tag names on itself.</p>
 				<p class="question">What?! You expose every element's children onto itself?</p>
-				<p>Nope! An element's children is only exposed when it's required so only the elements <em>used</em> will be HTML'fied.</p>
+				<p>Not so much, no. We dynamically create getters as you traverse, so no significant "work" is done until you use something.</p>
 				<p class="question">Does that pollute the element's object with lots of properties?</p>
-				<p>You'd be surprised at how little overhead there is left on the elements. When used correctly, HTML's footprint on an element can be reduced significantly (and it's not very hard to use it right).</p>
+				<p>Unless you have really crazy document structures, no, the impact is pretty small.</p>
 				<p class="question">Why should I use this instead of, say, jQuery?</p>
-				<p>Personally, I usually avoid <em>huge</em> libraries because I never use half of the great tools provided. HTML does one job and it does it well, in a friendly way too which is always a plus.</p>
+				<p>It's much smaller and much more direct. The DOM in modern browsers doesn't need much wrapping these days.</p>
 				<p class="question">Where can I get code?</p>
 				<p>HTML is <a href="http://github.com/nbubna/HTML">hosted on Github</a>. Feel free to fork and create a pull request!</p>
 				<p class="question">I have a suggestion, where do I put it?</p>
-				<p>Awesome! I'd love to hear it. You can <a href="mailto:cooney.adrian@gmail.com">email me</a>, <a href="http://twitter.com/nbubna">tweet it to me</a> or <a href="http://github.com/nbubna/HTML">create an issue on Github.</a></p>
+				<p>It strokes my ego when you <a href="http://github.com/nbubna/HTML">create an issue on Github.</a></p>
 			</div>
 			<hr>
 			<h2>API</h2>
 			<div class="api">
 				<article>
-					<h4>HTML <span class="returns">document.body</span></h4>
-					<p>The global HTML is the document <span class="tag">body</span> and all element tags queried via the dot operator are descendants. It acts as the root HTML.</p>
+					<h4>HTML <span class="returns">document.rootElement</span></h4>
+					<p>The global HTML is the document <span class="tag">html</span> and all element tags queried via the dot operator are descendants. It's the root node!</p>
 				</article>
 				<article>
 					<h4>HTML.<span class="variable">tag..</span> <span class="returns">HTMLElement|Array</span></h4>
-					<p>HTML allows you to access document nodes via their tag name. If multiple elements of the same tag list exist, an native <em>array</em> of elements is returned otherwise a <code>HTMLElement</code> (or <em>node</em>) is returned. Chaining is acceptable and encouraged.</p>
+					<p>HTML allows you to access document nodes via their tag name. If multiple elements of the same tag list exist, an native <em>array</em> of elements is returned otherwise a <code>HTMLElement</code> (or <em>node</em>) is returned. Chaining is fun.</p>
 					<pre class="example">
 HTML.div.h1; //body>div>h1. Returns h1 element.
 HTML.div.h1.innerHTML = "wobblewobble"; //..
