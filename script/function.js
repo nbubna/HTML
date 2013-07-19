@@ -72,15 +72,15 @@ var Storyboard = {
 	story: [
 		"HTML.body.div",
 		"HTML.body.div.section",
-		"HTML.body.div.section.only('#full')",
+		"HTML.body.div.section.only(0)",
 		"HTML.body.div.section.only('#full').ul.li",
-		"HTML.body.div.section.only('#full').ul.li\n  .each(function(li, i) {\n    li.textContent = \"List item #\" + i; \n  });",
-		"HTML.find(\"#empty\")",
-		"HTML.find(\"#empty\").add('h1')",
-		"//Use emmet extension\nHTML.find(\"#empty\").add('h1>em{Another h1}')",
-		"HTML.find(\"#empty\").add('h3*3')",
-		"HTML.find(\"#empty\").innerHTML = \"\"",
-		"HTML.find(\"#empty\").add('ul>li{More items!}*10')",
+		"HTML.body.div.section.only('#full').ul.li\n  .each('id', 'item${i}')",
+		"HTML.find('#empty')",
+		"HTML.find('#empty').add('h1')",
+		"HTML.find('#empty').add('ul>li{More items!}*5')",
+		"HTML.find('#empty li')\n  .each('textContent', function(el, i) {\n    return (i+1)+'/'+el.parentNode.children.length;\n  })",
+		"HTML.find('li').only(function(el, i) {\n  return i%2;\n}).each('className','odd')",
+		"HTML.find('#empty *').remove()",
 		"//Now you try it out for yourself! Edit me."
 	]
 };
