@@ -112,7 +112,7 @@ header h5 a:hover {
   border-radius: 8px;
   color: #fff;
   font-family: Monaco, monospace;
-  font-size: 14px;
+  font-size: 0.8em;
 }
 .banner #output {
   background: #312020;
