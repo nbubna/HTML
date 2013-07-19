@@ -79,7 +79,7 @@
 					<h4>HTML.<span class="variable">tag..</span> <span class="returns">HTMLElement|Array</span></h4>
 					<p>HTML allows you to access document nodes via their tag name. If multiple elements of the same tag list exist, an native <em>array</em> of elements is returned otherwise a <code>HTMLElement</code> (or <em>node</em>) is returned. Chaining is fun.</p>
 					<pre class="example">
-HTML.head.title; //html>head>title. Returns title element.
+HTML.head.title; // html>head>title. Returns title element.
 HTML.head.title.textContent = "A Better Title!"; //..
 </pre>
 				</article>
@@ -87,54 +87,58 @@ HTML.head.title.textContent = "A Better Title!"; //..
 					<h4>HTML.find( <span class="variable">selector</span> ) <span class="returns">HTMLElement|Array</span></h4>
 					<p><code>HTML.find</code> acts as a proxy for <code>querySelectorAll</code> and returns a <em>HTML'ified</em> node or array of nodes.</p>
 					<pre class="example">
-HTML.find("#example"); //Single node returned
-HTML.find(".example"); //Array of nodes returned if more than one, otherwise a node
-HTML.find("#example").h1.em; //Chaining, for the win!
+HTML.find("#example"); // single node returned
+HTML.find(".example"); // Array of nodes returned if more than one, otherwise a node
+HTML.find("#example").h1.em; // chaining, for the win!
 </pre>
 				</article>
 				<article>
 					<h4>HTML.<span class="variable">tag..</span>.find( <span class="variable">selector</span> ) <span class="returns">HTMLElement|Array</span></h4>
 					<p>Scoped <code>find</code>'s are also acceptable.</p>
 					<pre class="example">
-HTML.body.div.find(".example"); //Scoped query selector all
+HTML.body.div.find(".example"); // contextual search!
 </pre>
 				</article>
 				<article>
 					<h4>HTML.<span class="variable">tag..</span>.each( <span class="variable optional">callback(<em>element</em>)</span> ) <span class="returns">HTMLElement|Array</span></h4>
 					<p>Use a the current node or array of nodes within a closure. Returns the element or list it was called on.</p>
 					<pre class="example">
-HTML.body.ul.li; //Returns a list of list items
+HTML.body.ul.li; // returns the list items
 HTML.body.ul.li.each(function(li, i) {
 	li.textContext = "List item #" + i;
-}); //Returns li elements
+}); // returns li elements
 
-HTML.body.ul.each(function(ul) {
+HTML.body.ul.each(function(ul) {// each works on single nodes too
 	ul.style.background = "blue";
 
-	//Continue using the ul
+	// continue using the ul in here
 	ul.li;//...
-});
+}); // returns the ul
 </pre>
 				</article>
 				<article>
 					<h4>HTML.<span class="variable">tag..</span>.only( <span class="variable">begin</span> <span class="variable optional">, end</span> ) <span class="returns">HTMLElement|Array</span></h4>
 					<p>When an array of elements is returned, <code>only</code> allows you to operate on a single element in a list or a range of elements.</p>
 					<pre class="example">
-HTML.body.ul.li; //List of 10 li elements
+HTML.body.ul.li; // all li elements
+HTML.body.ul.li.only('.highlighted'); // li elements that match a selector
 HTML.body.ul.li.only(3).innerText = "Fourth li element!";
-HTML.body.ul.li.only(3, 9).each(function(li, i) {
+HTML.body.ul.li.only(3, 9).each(function(li, i) { // a slice of li elements
 	li.add('em').innerText = "Emphasized text!";
 });
+HTML.body.ul.li.only(function(el,i) {
+    return !(i % 2);
+});// uses a filter function to only return the even li elements
 </pre>
 				</article>
 				<article>
 					<h4>HTML.<span class="variable">tag..</span>.add(<span class="variable">tag-node-list</span> <span class="returns">HTMLElement|Array</span></h4>
 					<p>This automatically adds the specified tag or node (or list of those) to the element or array of elements on which it was called.</p>
 					<pre class="example">
-HTML.body.add('div; //Returns a div element
-HTML.body.add('div').add('h1'); //Returns a h1 element with div parent
+HTML.body.add('div'); // returns a div element
+HTML.body.add('div').add('h1'); // returns a h1 element with div parent
 HTML.head.add(document.createElement('script'));
-HTML.body.add(['section','aside','nav']);// now you're getting carried away...
+HTML.body.add([node1, node2, [ul1, ul2]]); // yummy recursive adding
 </pre>
 				</article>
 				<article>
@@ -143,13 +147,13 @@ HTML.body.add(['section','aside','nav']);// now you're getting carried away...
 					<a href="http://docs.emmet.io/abbreviations/syntax/">emmet abbreviations</a> to add elements to the DOM.
 					This extension supports most emmet features, except grouping and numbering. Those may be added later.</p>
 					<pre class="example">
-HTML.body.add('ul>li{new list item}*10');
+HTML.body.add('ul>li{list item text}*10');
 
 //Use in conjuction with only
-HTML.body.add('ul>li{item}*10)
+HTML.body.add('ul>li{item}*10')
 	.only(function(li,i){ return i%2; })
 	.each(function(li) {
-		li.textContent = "odd item";
+		li.classList.add('odd');
 	});
 </pre>
 				</article>
