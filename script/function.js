@@ -77,9 +77,9 @@ var Storyboard = {
 		"HTML.body.div.section.only('#full').ul.li\n  .each('id', 'item${i}')",
 		"HTML.find('#empty')",
 		"HTML.find('#empty').add('h1')",
-		"HTML.find('#empty').add('ul>li{More items!}*5')",
-		"HTML.find('#empty li')\n  .each('textContent', function(el, i) {\n    return (i+1)+'/'+el.parentNode.children.length;\n  })",
-		"HTML.find('#empty li').only(function(el, i) {\n  return i%2;\n}).each('className','odd')",
+		"HTML.find('#empty').add('ul>li{item}*5')",
+		"HTML.find('#empty li').each(function(el, i, all) {\n  el.textContent += ' '+(i+1)+' of '+all.length;\n})",
+		"HTML.find('#empty li').only(function(el, i) {\n  return i % 2;\n}).each('className','odd')",
 		"HTML.find('#empty *').remove()",
 		"//Now you try it out for yourself! Edit me."
 	]
