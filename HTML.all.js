@@ -1,4 +1,4 @@
-/*! HTML - v0.9.0 - 2013-07-15
+/*! HTML - v0.9.0 - 2013-07-18
 * http://nbubna.github.io/HTML/
 * Copyright (c) 2013 ESHA Research; Licensed MIT, GPL */
 (function(window, document) {
@@ -53,11 +53,19 @@
         },
         fn: {
             each: function(fn) {
-                var self = this.isNode ? [this] : this;
+                var self = this.isNode ? [this] : this,
+                    fields;
+                if (typeof fn === "string") {
+                    fields = [];
+                    fn = _.field.apply(self, arguments);
+                }
                 self.forEach(function(el, i, arr) {
-                    fn.call(self, _.node(el), i, arr);
+                    var ret = fn.call(self, _.node(el), i, arr);
+                    if (fields && ret !== undefined) {
+                        fields.push(ret);
+                    }
                 });
-                return this;
+                return fields && fields.length ? fields : this;
             },
             find: function(selector) {
                 var self = this.isNode ? [this] : this;
@@ -77,6 +85,41 @@
                         )
                 );
             }
+        },
+        field: function(key) {
+            var args = _.slice.call(arguments, 1);
+            key = _.fn.each[key] || key;// e.g. _.fn.each['+class'] = 'classList.add';
+            return function(el, i){ return _.resolve(key, el, args, i); };
+        },
+        resolve: function(_key, _el, args, i) {
+            var key = _key, el = _el;// copy prefixed originals so we can recover them if need be
+            args = args.length ? _.fill(args, i, el) : null;
+            if (key.indexOf('.') > 0) {
+                var keys = key.split('.');
+                while (keys.length > 1 && (el = el[key = keys.shift()])){}
+                // if lookup failed, reset to originals
+                el = el || _el;
+                key = el ? keys[0] : _key;
+            }
+            var val = el[key];
+            if (val !== undefined) {
+                if (typeof val === "function") { return val.apply(el, args); }
+                else if (args) { el[key] = args[0]; }
+                else { return val; }
+            }
+            else if (args) { el.setAttribute(_key, args[0]); }
+            else { return el.getAttribute(_key); }
+        },
+        fill: function(args, index, el) {
+            var ret = [];
+            for (var i=0,m=args.length; i<m; i++) {
+                var arg = args[i],
+                    type = typeof arg;
+                ret[i] = type === "string" ? arg.replace(/\$\{i\}/g, index) :
+                         type === "function" ? arg(el, index, args) :
+                         arg;
+            }
+            return ret;
         }
     };
 
@@ -100,32 +143,46 @@
 (function(document, _) {
     "use strict";
 
-    var add = _.fn.add = function(arg) {
+    var add = _.fn.add = function(arg, ref) {
         var list = [];
         this.each(function(node) {
-            list = list.concat(add.append(node, arg));
+            list = list.concat(add.all(node, arg, ref));
         });
         return _.list(list);
     };
-    add.append = function(node, arg) {
-        if (typeof arg === "string") {
-            return add.create(node, arg);
+    add.all = function(node, arg, ref) {
+        if (typeof arg === "string") {// turn arg into an appendable
+            return add.create(node, arg, ref);
         }
         if ('length' in arg) {// array of append-ables
             var ret = [];
             for (var i=0,m=arg.length; i<m; i++) {
-                ret.push(add.append(node, arg[i]));
+                ret.push(add.all(node, arg[i], ref));
             }
             return ret;
         }
-        // ok, assume they know what they're doing
-        node.appendChild(arg);
+        add.insert(node, arg, ref);// arg is an append-able
         return arg;
     };
-    add.create = function(node, tag) {
-        var el = document.createElement(tag);
-        node.appendChild(node);
-        return el;
+    add.create = function(node, tag, ref) {
+        return add.insert(node, document.createElement(tag), ref);
+    };
+    add.insert = function(node, child, ref) {
+        var sibling = add.find(node, ref);
+        if (sibling) {
+            node.insertBefore(child, sibling);
+        } else {
+            node.appendChild(child);
+        }
+        return child;
+    };
+    add.find = function(node, ref) {
+        switch (typeof ref) {
+            case "string": return node[ref+'Child'];
+            case "number": return node.children[ref];
+            case "object": return ref;
+            case "function": return ref.call(node, node);
+        }
     };
 
     _.fn.remove = function() {
@@ -153,23 +210,23 @@
     "use strict";
 
     var add = _.fn.add;
-    add.create = function(node, code) {
-        var parts = code.split(add.re()),
+    add.create = function(node, code, ref) {
+        var parts = code.split(add.emmetRE()),
             root = document.createDocumentFragment(),
             el = document.createElement(parts[0]);
         root.appendChild(el);
         for (var i=1,m=parts.length; i<m; i++) {
             var part = parts[i];
-            el = add.syntax[part.charAt(0)].call(el, part.substr(1), root) || el;
+            el = add.emmet[part.charAt(0)].call(el, part.substr(1), root) || el;
         }
-        node.appendChild(root);
+        add.insert(node, root, ref);
         return el;
     };
-    add.re = function() {
-        var chars = '\\'+Object.keys(add.syntax).join('|\\');
+    add.emmetRE = function() {
+        var chars = '\\'+Object.keys(add.emmet).join('|\\');
         return new RegExp('(?='+chars+')','g');
     };
-    add.syntax = {
+    add.emmet = {
         '#': function(id) {
             this.id = id;
         },
@@ -194,7 +251,7 @@
             return this;
         },
         '+': function(tag, root) {
-            return add.syntax['>'].call(this.parentNode || root, tag);
+            return add.emmet['>'].call(this.parentNode || root, tag);
         },
         '*': function(count) {
             var parent = this.parentNode,
@@ -207,7 +264,7 @@
             return els;
         },
         '^': function(tag, root) {
-            return add.syntax['+'].call(this.parentNode || root, tag, root);
+            return add.emmet['+'].call(this.parentNode || root, tag, root);
         },
         '{': function(text) {
             this.appendChild(document.createTextNode(text.substr(0, text.length-1)));
