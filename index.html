@@ -34,37 +34,29 @@
 			<div class="features columns">
 				<div class="third">
 					<h3>Clear and consistent</h3>
-					<p>HTML lets you traverse the DOM with readable code and a consistent set of useful functions for both nodes and arrays of nodes.</p>
+					<p>HTML lets you traverse and search the DOM with simple, readable, consistent code for both nodes and arrays of nodes.</p>
 				</div><div class="third">
 					<h3>Powerful, flexible Functions</h3>
-					<p>HTML provides functions to let you navigate, use, and alter the DOM with ease and clarity.</p>
+					<p>HTML's functions enable you to use native DOM features with brevity, clarity, and more power than ever.</p>
 				</div><div class="third">
 					<h3>Simple extendability</h3>
-					<p>Much like jQuery, HTML is very easy to extend with the features you need.</p>
+					<p>HTML is very easy to extend and adapt to provide just the features you need.</p>
 				</div>
 			</div>
 			<hr>
 			<h2>FAQ</h2>
 			<div class="faq">
-				<p class="question">Why not just use <a href="http://dunxrion.github.io/voyeur.js">Voyeur.js</a>?</p>
-				<p>Actually, this started as a fork of Voyeur. But they diverged too much to ever be merged.
-				HTML's biggest advantage is extensibility, but there are many other improvements as well.
-				They still retain the same property access technique, and obviously, the layout and features of Adrian's
-				excellent github.io site. Under the covers, though, the project's source is all new and improved.</p>
-				<p class="question">Why call it "HTML"? Isn't it confusing?</p>
-				<p>No, it's self documenting. I like code that tells you what it is doing when you read it.</p>
+				<p class="question">So, another jQuery-lite, eh?</p>
+				<p>There is a difference. This doesn't wrap or hide the native DOM for you. It exposes and enhances it, making it your ally instead of
+				trying to protect you from it.</p>
+				<p class="question">Why call it HTML?</p>
+				<p>Succint, self-documenting code is the ideal, and a self-descriptive name is also a great ward against feature creep. HTML is not going to do AJAX or JSON or CSS. It is about using your document's markup in javascript; so that is what i want it to look like in code.</p>
 				<p class="question">Which browsers does HTML support?</p>
 				<p>The modern ones: IE9+, Firefox, Safari, Chrome, Opera and the like.</p>
 				<p class="question">How does the DOM traversal work?</p>
-				<p>We use object getter functions to expose an element's children via their tag names on itself.</p>
-				<p class="question">What?! You expose every element's children onto itself?</p>
-				<p>Not so much. We dynamically create getters as you traverse. Any part of the document you avoid, we avoid.</p>
-				<p class="question">Doesn't this pollute elements with lots of properties?</p>
-				<p>Unless you have really crazy document structures or go nuts with extensions, the impact is very small.</p>
-				<p class="question">Why should I use this instead of, say, jQuery?</p>
-				<p>It's much smaller and much more direct. The DOM in modern browsers doesn't need much wrapping these days.</p>
-				<p class="question">Where can I get code?</p>
-				<p><a href="http://github.com/nbubna/HTML">Github</a>. Feel free to fork and create a pull request!</p>
+				<p>We use object getter functions to expose an element's children via their tag names on itself. But we only do it lazily, on objects you access via HTML, to keep the impact small.</p>
+				<p class="question">Hey, this reminds me of <a href="http://dunxrion.github.io/voyeur.js">Voyeur.js</a>?</p>
+				<p>It should; this is a fork of it. Granted, the code and build are 99.9% rewritten, but credit for this technique of traversing the DOM as well as the layout and features of this site must go to Adrian Cooney.</p>
 				<p class="question">I have a suggestion, where do I put it?</p>
 				<p>I do a happy dance when you <a href="http://github.com/nbubna/HTML">create an issue on Github.</a></p>
 			</div>
