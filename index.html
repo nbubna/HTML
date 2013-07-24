@@ -175,11 +175,11 @@ HTML.body.nav.a.on('click', goToSection);
 </pre>
 				</article>
 				<article>
-					<h4>HTML._.fn.each[<span class="variable">alias</span>] = <span class="variable">property</span>;</h4>
+					<h4>HTML._.field[<span class="variable">alias</span>] = <span class="variable">property</span>;</h4>
 					<p>You may create property aliases for <code>each</code>.</p>
 					<pre class="example">
-HTML._.fn.each['-class'] = 'classList.remove';
-HTML._.fn.each['+class'] = 'classList.add';
+HTML._.field['-class'] = 'classList.remove';
+HTML._.field['+class'] = 'classList.add';
 HTML.find('.foo').each('-class', 'foo').each('+class', 'bar');
 </pre>
 				</article>
