@@ -1,50 +1,104 @@
-HTMLElement.prototype.stringify = function(options) {
-	options = options || {};
-	var defaults = {
-		string: "string",
-		attr: "attr",
-		tag: "tag",
-		markup: "markup",
-		tab: "&nbsp;&nbsp;&nbsp;&nbsp;",
-		gt: "&gt;",
-		lt: "&lt;",
-		end: "/",
-		newline: "<br>"
+/*! HTML - v0.9.0 - 2013-07-23
+* http://nbubna.github.io/HTML/
+* Copyright (c) 2013 ESHA Research; Licensed MIT, GPL */
+(function(window, document, HTML) {
+    "use strict";
+
+	var fn = HTML._.fn.stringify = function(markup, indent) {
+		var s = '';
+		this.each(function(el) {
+			s += _.print(el, markup||false, indent||'');
+		});
+		return s;
+	},
+	_ = fn._ = {
+		map: Array.prototype.map,
+		specialPrefix: '_',
+		markup: {
+			'\n': '<br>',
+			'<': '<span class="markup">&lt;</span>',
+			'>': '<span class="markup">&gt;</span>',
+			'</': '<span class="markup">&lt;/</span>',
+			'\t': '&nbsp;&nbsp;&nbsp;&nbsp;'
+		},
+		plain: {
+			'\n': '\n',
+			'<': '<',
+			'>': '>',
+			'</': '</',
+			'/>': '/>',
+			'\t': '    '
+		},
+		type: {
+			attr: 'attr',
+			string: 'string',
+			tag: 'tag',
+		},
+		print: function(el, markup, indent) {
+			var tag = el.tagName.toLowerCase(),
+				code = markup ? _.markup : _.plain,
+				line = _.isInline(el) ? '' : code['\n'],
+				content = _.content(el, markup, indent+code['\t'], line),
+				attrs = _.attrs(el, markup),
+				special = markup ? _.special(el) : [];
+
+			if (markup) {
+				tag = _.mark(tag, _.type.tag);
+			}
+			var open = _.mark(code['<'] + tag + (attrs ? ' '+attrs : '') + code['>'], special),
+				close = _.mark(code['</'] + tag + code['>'], special);
+			if (content && line) {
+				content = line + content + line + indent;
+			}
+			return indent + open + content + close;
+		},
+		isInline: function(el) {
+			return (el.currentStyle || window.getComputedStyle(el,'')).display === 'inline' ||
+				el.tagName.match(/^(H\d|LI)$/i);
+		},
+		content: function(el, markup, indent, line) {
+			var s = [];
+			for (var i=0, m= el.childNodes.length; i<m; i++) {
+				var node = el.childNodes[i];
+				if (node.tagName) {
+					s.push(_.print(node, markup, line ? indent : ''));
+				} else if (node.nodeType === 3) {
+					var text = node.textContent.replace(/^\s+|\s+$/g, ' ');
+					if (text.match(/[^\s]/)) {
+						s.push(text);
+					}
+				}
+			}
+			return s.join(line);
+		},
+		attrs: function(el, markup) {
+			return _.map.call(el.attributes, function(attr) {
+				var name = attr.nodeName,
+					value = attr.nodeValue;
+				if (!markup || name.indexOf(_.specialPrefix) !== 0) {
+					return markup ? _.mark(name+'=', _.type.attr) + _.mark('"'+value+'"', _.type.string)
+                                  : name+'="'+value+'"';
+				}
+			}).filter(_.notEmpty).join(' ');
+		},
+		special: function(el) {
+			return _.map.call(el.attributes, function(attr) {
+				var name = attr.nodeName;
+				if (name.indexOf(_.specialPrefix) === 0) {
+					return name.substr(1)+'="'+attr.nodeValue+'"';
+				}
+			}).filter(_.notEmpty);
+		},
+		mark: function(value, attrs) {
+			if (attrs.length) {
+				if (typeof attrs === "string"){ attrs = ['class="'+attrs+'"']; }
+				return '<span '+attrs.join(' ')+'>'+value+'</span>';
+			}
+			return value;
+		},
+		notEmpty: function(s) {
+			return s !== undefined && s !== null && s !== '';
+		}
 	};
 
-	for(var key in defaults) if(!options[key]) options[key] = defaults[key];
-
-	var str = "", textElems = /\b(?:(?:h\d)|(?:li))\b/;
-
-	(function recur(elements, level) {
-		elements.forEach(function(elem) {
-			var tagName = elem.tagName.toLowerCase(),
-				isInline = ((elem.currentStyle || window.getComputedStyle(elem, "")).display == "inline"),
-				highlight = !!elem.getAttribute("data-highlight");
-
-			str += tag(elem, isInline ? 0 : level, highlight);
-			if(!elem.children.length && (tagName.match(textElems) || isInline)) str += elem.textContent;
-
-			if(elem.children.length) {
-				recur(Array.prototype.slice.call(elem.children), level + 1);
-				str += tag(elem, (tagName.match(textElems) || isInline) ? 0 : level, highlight, true, !level);
-			} else {
-				str += tag(elem, 0, highlight, true);
-			}
-		});
-	})([this], 0);
-
-	function tag(elem, tab, highlight, close, newline) { 
-		return (tab || newline ? options.newline : "") +
-			(function() { str = ""; for(var i = 0; i < tab; i++) str += options.tab; return str; })() +
-			"<span class='" + (highlight ? "highlight" : "") + "'>" +
-			"<span class='" + options.markup + "''>" + options.lt +
-			(close ? options.end : "") + "</span>" +
-			"<span class='" + options.tag + "'>" + elem.tagName.toLowerCase() + "</span>" +
-			(close ? "" : (function() { return Array.prototype.map.call(elem.attributes, function(attr) { if(attr.nodeName !== "data-highlight") return " <span class='" + options.attr + "'>" + attr.nodeName + "=</span><span class='" + options.string + "'>\"" + attr.nodeValue + "\"</span>"}).join(""); })()) +
-			"<span class='" + options.markup + "'>" + options.gt + "</span>" +
-			"</span>";
-	}
-
-	return str
-};
+})(window, document, HTML);

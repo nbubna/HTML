@@ -11,7 +11,7 @@
 		<div class="wrapper">
 			<h5><a href="https://twitter.com/share" class="twitter-share-button" data-via="nadabu">Tweet</a>
 			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-			<a href="http://github.com/nbubna/HTML">Fork it on Github</a></h5>
+			<a id="github-ribbon" target="_blank" href="https://github.com/nbubna/HTML"><img alt="Fork me on GitHub" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
 			<h1>HTML</h1>
 			<h3>The DOM can be your friend.</h3>
 		</div>
@@ -20,7 +20,7 @@
 		<div class="wrapper">
 			<div class="info">
 				<p>HTML is a simple, extensible way to work directly with the DOM that won't make you want to pull your hair out.
-				<a href="https://rawgithub.com/nbubna/HTML/master/dist/HTML.all.min.js.gz">HTML.min.js (1.5kb)</a>
+				<a href="https://rawgithub.com/nbubna/HTML/master/dist/HTML.all.min.js.gz">HTML.min.js (~2kb)</a>
 			</div>
 			<div class="banner columns">
 				<div class="half">
@@ -28,7 +28,7 @@
 					<textarea id="input" wrap="off"></textarea>
 				</div><div class="half">
 					<h3>Output</h3>
-					<div id="output"><iframe src="script/iframe.html"></iframe></div>
+					<div id="output"><iframe src="iframe.html"></iframe></div>
 				</div>
 			</div>
 			<div class="features columns">
@@ -43,36 +43,22 @@
 					<p>HTML is very easy to extend and adapt to provide just the features you need.</p>
 				</div>
 			</div>
-			<hr>
-			<h2>FAQ</h2>
-			<div class="faq">
-				<p class="question">So, another jQuery-lite, eh?</p>
-				<p>There is a difference. This doesn't wrap or hide the native DOM for you. It exposes and enhances it, making it your ally instead of
-				trying to protect you from it.</p>
-				<p class="question">Why call it HTML?</p>
-				<p>Succint, self-documenting code is the ideal, and a self-descriptive name is also a great ward against feature creep. HTML is not going to do AJAX or JSON or CSS. It is about using your document's markup in javascript; so that is what i want it to look like in code.</p>
-				<p class="question">Which browsers does HTML support?</p>
-				<p>The modern ones: IE9+, Firefox, Safari, Chrome, Opera and the like.</p>
-				<p class="question">How does the DOM traversal work?</p>
-				<p>We use object getter functions to expose an element's children via their tag names on itself. But we only do it lazily, on objects you access via HTML, to keep the impact small.</p>
-				<p class="question">Hey, this reminds me of <a href="http://dunxrion.github.io/voyeur.js">Voyeur.js</a>?</p>
-				<p>It should; this is a fork of it. Granted, the code and build are 99.9% rewritten, but credit for this technique of traversing the DOM as well as the layout and features of this site must go to Adrian Cooney.</p>
-				<p class="question">I have a suggestion, where do I put it?</p>
-				<p>I do a happy dance when you <a href="http://github.com/nbubna/HTML">create an issue on Github.</a></p>
+			<div class="info">
+				<p>See our <a href="#FAQ">F.A.Q.</a>!</p>
 			</div>
 			<hr>
 			<h2>API</h2>
 			<div class="api">
 				<article>
 					<h4>HTML <span class="returns">document.rootElement</span></h4>
-					<p>The global HTML is the document <span class="tag">html</span> and all element tags queried via the dot operator are descendants. It's the root node!</p>
+					<p>The global HTML is the document <span class="tag">html</span> and all element tags queried via the dot operator are descendants. It's the root element!</p>
 				</article>
 				<article>
 					<h4>HTML.<span class="variable">tag..</span> <span class="returns">HTMLElement|Array</span></h4>
-					<p>HTML allows you to access document nodes via their tag name. If multiple elements of the same tag list exist, an native <em>array</em> of elements is returned otherwise a <code>HTMLElement</code> (or <em>node</em>) is returned. Chaining is fun.</p>
+					<p>HTML allows you to access document elements via their tag name. If multiple elements of the same tag list exist, an native <em>array</em> of elements is returned otherwise a <code>HTMLElement</code> (or <em>node</em>) is returned. Chaining is fun.</p>
 					<pre class="example">
-HTML.head.title; // html>head>title. Returns title element.
-HTML.head.title.textContent = "A Better Title!"; //..
+HTML.head.title; // returns title element.
+HTML.head.title.textContent = "A Better Title!";
 </pre>
 				</article>
 				<article>
@@ -80,7 +66,9 @@ HTML.head.title.textContent = "A Better Title!"; //..
 					<p><code>HTML.find</code> acts as a proxy for <code>querySelectorAll</code> and returns a <em>HTML'ified</em> node or array of nodes.</p>
 					<pre class="example">
 HTML.find("#example"); // single node returned
+
 HTML.find(".example"); // Array of nodes returned if more than one, otherwise a node
+
 HTML.find("#example").h1.em; // chaining, for the win!
 </pre>
 				</article>
@@ -92,12 +80,12 @@ HTML.body.div.find(".example"); // contextual search!
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<span class="variable">tag..</span>.each( <span class="variable optional">callback(<em>element</em>)</span> ) <span class="returns">HTMLElement|Array</span></h4>
+					<h4>HTML.<span class="variable">tag..</span>.each( <span class="variable">callback(<em>element</em>,<em>index</em>,<em>array</em>)</span> ) <span class="returns">HTMLElement|Array</span></h4>
 					<p>Use a the current node or array of nodes within a closure. Returns the element or list it was called on.</p>
 					<pre class="example">
-HTML.body.ul.li; // returns the list items
-HTML.body.ul.li.each(function(li, i) {
-	li.textContext = "List item #" + i;
+HTML.body.ul.li.each(function(el, i, all) {
+	li.textContext = "Item" + (i+1) + " of " + all.length;
+}
 }); // returns li elements
 
 HTML.body.ul.each(function(ul) {// each works on single nodes too
@@ -109,22 +97,41 @@ HTML.body.ul.each(function(ul) {// each works on single nodes too
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<span class="variable">tag..</span>.only( <span class="variable">begin</span> <span class="variable optional">, end</span> ) <span class="returns">HTMLElement|Array</span></h4>
-					<p>When an array of elements is returned, <code>only</code> allows you to operate on a single element in a list or a range of elements.</p>
+					<h4>HTML.<span class="variable">tag..</span>.each( <span class="variable">property</span> <span class="variable optional">, arguments</span> ) <span class="returns">HTMLElement|Array</span></h4>
+					<p>Get, set, or invoke the specified property of the current node or array of nodes. Returns either the array of retrieved/returned values or the element/list it was called on.</p>
 					<pre class="example">
-HTML.body.ul.li; // all li elements
-HTML.body.ul.li.only('.highlighted'); // li elements that match a selector
-HTML.body.ul.li.only(3).innerText = "Fourth li element!";
-HTML.body.ul.li.only(3, 9).each(function(li, i) { // a slice of li elements
+var items = HTML.body.ul.li;
+var texts = items.each('textContent'); // returns array of strings
+
+items.each('id', 'item${i}');// sets the id of each element (replaces ${i} with index)
+
+items.each('click');// calls 'click()' on each element, returns original items
+
+items.each('classList.add', 'foo');// adds 'foo' class to each item's classList
+</pre>
+				</article>
+				<article>
+					<h4>HTML.<span class="variable">tag..</span>.only( <span class="variable">filter</span> <span class="variable optional">, endSlice</span> ) <span class="returns">HTMLElement|Array</span></h4>
+					<p>When an array of elements is returned, <code>only</code> allows you to easily filter
+					that list by selector, index, slice, or filtering function.</p>
+					<pre class="example">
+var items = HTML.body.ul.li; // all li elements
+
+items.only('.highlighted'); // li elements that match a selector
+
+items.only(3).innerText = "Fourth li element!";// a single element
+
+items.only(3, 9).each(function(li, i) { // a slice of li elements
 	li.add('em').innerText = "Emphasized text!";
 });
-HTML.body.ul.li.only(function(el,i) {
+
+items.only(function(el,i) {
     return !(i % 2);
 });// uses a filter function to only return the even li elements
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<span class="variable">tag..</span>.add(<span class="variable">tag-node-list</span> <span class="returns">HTMLElement|Array</span></h4>
+					<h4>HTML.<span class="variable">tag..</span>.add(<span class="variable">tag-node-list</span>) <span class="returns">HTMLElement|Array</span></h4>
 					<p>This automatically adds the specified tag or node (or list of those) to the element or array of elements on which it was called.</p>
 					<pre class="example">
 HTML.body.add('div'); // returns a div element
@@ -144,11 +151,54 @@ HTML.body.add('ul>li{list item text}*10');
 //Use in conjuction with only
 HTML.body.add('ul>li{item}*10')
 	.only(function(li,i){ return i%2; })
-	.each(function(li) {
-		li.classList.add('odd');
-	});
+	.each('classList.add','odd');
 </pre>
 				</article>
+				<article>
+					<h4>HTML._other <span class="returns">Node|Array</span></h4>
+					<p>On any element, you may access the non-element nodes via <code>._other</code></p>
+					<pre class="example">
+var nodes = HTML.body.section._other;
+var text = nodes.only(function(node){ return node.nodeType == 3; })
+</pre>
+				</article>
+				<article>
+					<h4>HTML._.fn.[<span class="variable">name</span>] = <span class="variable">function</span>;</h4>
+					<p>Use this to create your own plugins that extend the DOM.</p>
+					<pre class="example">
+HTML._.fn.on = function(event, callback) {
+	return this.each(function(el) {
+		el.addEventListener(event, callback);
+	});	
+};
+HTML.body.nav.a.on('click', goToSection);
+</pre>
+				</article>
+				<article>
+					<h4>HTML._.fn.each[<span class="variable">alias</span>] = <span class="variable">property</span>;</h4>
+					<p>You may create property aliases for <code>each</code>.</p>
+					<pre class="example">
+HTML._.fn.each['-class'] = 'classList.remove';
+HTML._.fn.each['+class'] = 'classList.add';
+HTML.find('.foo').each('-class', 'foo').each('+class', 'bar');
+</pre>
+				</article>
+			</div>
+			<hr>
+			<h2><a name="FAQ">FAQ</a></h2>
+			<div class="faq">
+				<p class="question">So, another jQuery-lite, eh?</p>
+				<p>Not so much. This doesn't wrap or hide the native DOM for you. It exposes and enhances it, making it your ally instead of trying to protect you from it.</p>
+				<p class="question">Why call it HTML?</p>
+				<p>Succint, self-documenting code is the ideal, and a self-descriptive name is also a great ward against feature creep. HTML is not going to do AJAX or JSON or CSS. It is about interacting with your document's HTML structure in javascript.</p>
+				<p class="question">Which browsers does HTML support?</p>
+				<p>The modern ones: IE9+, Firefox, Safari, Chrome, Opera and the like. Throw in an <a href="https://github.com/kriskowal/es5-shim">es5-shim</a> and older browsers should get everything but the dot-traversal of the DOM.</p>
+				<p class="question">How does the DOM traversal work?</p>
+				<p>By defining lazy object getter functions for child tags. Again, we only do it lazily, on objects you access via this library, to keep the impact small.</p>
+				<p class="question">Hey, this is like <a href="http://dunxrion.github.io/voyeur.js">Voyeur.js</a>...</p>
+				<p>This began as a fork but became much different and much more. The DOM traversal technique and structure of this documentation page are about all that remain of Adrian Cooney's work.</p>
+				<p class="question">I have a suggestion, where do I put it?</p>
+				<p>I do a happy dance when you <a href="http://github.com/nbubna/HTML">create an issue on Github.</a></p>
 			</div>
 		</div>
 
@@ -159,9 +209,10 @@ HTML.body.add('ul>li{item}*10')
 		</div>
 	</footer>
 </body>
-<script src="HTML.all.js" type="text/javascript"></script>
+<script src="script/HTML.all.js" type="text/javascript"></script>
 <script src="script/Sintax.js" type="text/javascript"></script>
 <script src="script/demo.js" type="text/javascript"></script>
+<script src="script/index.js" type="text/javascript"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

@@ -1,59 +1,66 @@
-/*! HTML - v0.9.0 - 2013-07-18
+/*! HTML - v0.9.0 - 2013-07-23
 * http://nbubna.github.io/HTML/
 * Copyright (c) 2013 ESHA Research; Licensed MIT, GPL */
-(function(window, document) {
+(function(window, document, Observer) {
     "use strict";
 
     var _ = {
         version: "0.9.0",
         slice: Array.prototype.slice,
         list: function(list) {
-            if (list.isNodeList){ return list; }
             if (list.length === 1){ return _.node(list[0]); }
-            list = _.slice.call(list);
-            list.isNodeList = true;
-            _.functions(list);
+            if (!list.each) {
+                if (!list.slice){ list = _.slice.call(list); }
+                _.methods(list);
+                //TODO: children traversal into first child of list
+            }
             return list;
         },
         node: function(node) {
-            if (!node.isNode) {
-                node.isNode = true;
-                _.functions(node);
+            try{ if (!node) throw 'test';}
+            catch(e){
+                console.log(node, e); }
+            if (!node.each) {
+                _.methods(node);
+                _.children(node);
             }
-            _.children(node);// make sure we're current
             return node;
         },
-        functions: function(o) {
-            for (var name in _.fn) {
-                o[name] = _.fn[name].bind(o);
+        methods: function(o) {
+            for (var method in _.fn) {
+                o[method] = _.fn[method].bind(o);
             }
         },
         children: function(node) {
-            for(var i=0, m=node.childNodes.length, map={}; i<m; i++) {
+            var children = node._children = {};
+            for (var i=0, m=node.childNodes.length; i<m; i++) {
                 var child = node.childNodes[i],
-                    type = _.type(child);
-                (map[type]||(map[type]=[])).push(child);
+                    key = _.key(child);
+                (children[key]||(children[key]=[])).push(child);
+                if (!(key in node)){ _.define(node, key); }
             }
-            Object.keys(map).forEach(function(key) {
-                try {
-                    Object.defineProperty(node, key, _.definition(map[key]));
-                } catch (e) {}
-            });
+            return children;
         },
-        type: function(node) {
-            return node.tagName ? node.tagName.toLowerCase() :
-                   node.nodeType === 3 && node.textContent.trim() ? '_text' :
-                   '_empty';
+        key: function(node) {
+            return node.tagName ? node.tagName.toLowerCase() : '_other';
         },
-        definition: function(children) {
-            return {
-                get: function(){ return _.list(children); },
-                configurable: true
-            };
+        define: function(node, key) {
+            try {
+                Object.defineProperty(node, key, {
+                    get: function() {
+                        if (!node._children){ _.children(node); }
+                        return _.list(node._children[key]||[]);
+                    }
+                });
+            } catch (e) {}
+        },
+        mutation: function(e) {
+            var node = e.target;// only wipe cache for 3rd party changes
+            delete node[node._internal ? '_internal' : '_children'];
         },
         fn: {
             each: function(fn) {
-                var self = this.isNode ? [this] : this,
+                var self = this.forEach ? this : [this],
                     fields;
                 if (typeof fn === "string") {
                     fields = [];
@@ -68,14 +75,14 @@
                 return fields && fields.length ? fields : this;
             },
             find: function(selector) {
-                var self = this.isNode ? [this] : this;
+                var self = this.forEach ? this : [this];
                 for (var list=[],i=0,m=self.length; i<m; i++) {
                     list = list.concat(_.slice.call(self[i].querySelectorAll(selector)));
                 }
                 return _.list(list);
             },
             only: function(b, e) {
-                var self = this.isNode ? [this] : this;
+                var self = this.forEach ? this : [this];
                 return _.list(
                     b >= 0 || b < 0 ?
                         self.slice(b, e || (b + 1) || undefined) :
@@ -123,22 +130,28 @@
         }
     };
 
-    var HTML = _.node(document.documentElement);// early, for use in head
+    var HTML = _.node(document.documentElement);// early availability
     HTML._ = _;
-    ['m','webkitM','mozM','msM'].forEach(function(prefix) {
+    ['webkitM','mozM','msM','m'].forEach(function(prefix) {
         if (HTML[prefix+'atchesSelector']) {
             _.matches = prefix+'atchesSelector';
         }
     });
+    if (Observer) {
+        new Observer(function(list){ list.forEach(_.mutation); })
+            .observe(HTML, { childList: true, subtree: true });
+    } else {
+        document.addEventListener("DOMSubtreeModified", _.mutation);
+    }
     if (typeof module !== 'undefined' && module.exports) {
         module.exports = HTML;
     } else {
         window.HTML = HTML;
     }
-    // again, for use in body
-    document.addEventListener("DOMContentLoaded", function(){ _.node(HTML); });
+    // eventual consistency
+    document.addEventListener("DOMContentLoaded", function(){ _.children(HTML); });
 
-})(window, document);
+})(window, document, window.MutationObserver);
 
 (function(document, _) {
     "use strict";
@@ -174,6 +187,7 @@
         } else {
             node.appendChild(child);
         }
+        _.updated(node);
         return child;
     };
     add.find = function(node, ref) {
@@ -185,6 +199,11 @@
         }
     };
 
+    _.updated = function(node) {
+        node._internal = true;
+        _.children(node);
+    };
+
     _.fn.remove = function() {
         var parents = [];
         this.each(function(node) {
@@ -193,14 +212,7 @@
                 parents.push(parent);
             }
             parent.removeChild(node);
-
-            var key = _.type(node),
-                val = parent[key];
-            if (val && val.isNodeList) {
-                val.splice(val.indexOf(node), 1);
-            } else {
-                delete parent[key];
-            }
+            _.updated(parent);
         });
         return _.list(parents);
     };

@@ -92,6 +92,23 @@ header h5 a {
 header h5 a:hover {
   text-decoration: underline;
 }
+header #github-ribbon {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 200;
+}
+header .twitter-share-button {
+  right: 10%;
+  position: absolute;
+  top: 5%;
+}
+header img {
+  border: 0 none;
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
+}
 .info {
   text-align: center;
 }

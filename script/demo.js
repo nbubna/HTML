@@ -1,106 +1,82 @@
 (function(window, document) {
 	"use strict";
 
-	var Story = {
+	var Demo = function Demo(input, output, story) {
+		if (!(this instanceof Demo)) {
+			return new Demo(input, output, story);
+		}
+		this.start(input, output, story);
+	};
+	Demo.prototype = {
 		intentTimeout: 1000,
 		animateTimeout: 50,
 		nextTimeout: 2000,
 		start: function(input, output, story) {
-			_.input = input;
-			_.output = output;
-			_.story = story;
-			_.intent(input);
-			setTimeout(Story.resume, Story.intentTimeout);
-		},
-		pause: function() {
-			_.running = false;
-		},
-		resume: function() {
-			_.running = true;
-			Story.next();
+			this.input = input;
+			this.output = output;
+			this.story = story;
+			this.intent(input);
+			var self = this;
+			this._next = function(){ self.next(); };
+			this._exec = function(){ self.execute(); };
+			setTimeout(this._next, this.intentTimeout);
 		},
 		next: function() {
-			if (_.running) {
-				var code = _.story[_.index];
-				if (code) {
-					_.animate(input.value, code, function(str) {
-						input.value = str;
-					}, function() {
-						_.execute();
-						setTimeout(Story.next, Story.nextTimeout);
-					});
-					_.index++;
-				}
+			var code = this.story[this.index],
+				self = this;
+			if (code) {
+				this.animate(input.value, code, function(text) {
+					input.value = text;
+				}, function() {
+					self._exec();
+					setTimeout(self._next, self.nextTimeout);
+				});
+				this.index++;
 			}
-		}
-	},
-	_ = {
+		},
 		intent: function(el) {
-			var timeout;
+			var timeout, self = this;
 			el.addEventListener("keydown", function() {
 				if (timeout){ clearTimeout(timeout); }
-				timeout = setTimeout(_.execute, Story.intentTimeout);
+				timeout = setTimeout(self._exec, self.intentTimeout);
 			});
 		},
-		intentTimeout: 1000,
+		doc: function(o) {
+			return o.createElement ? o :
+				   o.contentWindow ? o.contentWindow.document :
+				   o.ownerDocument ||
+				   document;
+		},
 		execute: function() {
-			var data = _.input.value,
-				doc = _.output.contentWindow.document
+			var code = this.input.value,
+				doc = this.doc(this.output),
+				script = doc.createElement("script"),
+				previous = doc.getElementById("executable");
 
-			var script = doc.createElement("script");
-			script.innerHTML = data;
+			script.innerHTML = code;
 			script.id = "executable";
-			if (doc.getElementById("executable")) {
-				doc.body.removeChild(doc.getElementById("executable"));
+			if (previous) {
+				doc.body.removeChild(previous);
 			}
 			doc.body.appendChild(script);
 		},
-		animate: function(from, to, fn, done) {
-			var s = from,
-				i = to.length,
-				index = to.indexOf(from) === 0 ? from.length : 0;
-			(function animate() {
-				if (s.length > index) {
-					s = s.substr(0, s.length - 1);
-					fn(s);
+		animate: function(text, next, update, finish) {
+			var i = text.length, self = this;
+			(function step() {
+				if (next.indexOf(text) < 0) {// backspace
+					text = text.substr(0, --i);
+				} else if (i < next.length) {// type
+					text = next.substr(0, ++i);
 				} else {
-					if (i) {
-						fn(to.substr(0, index + to.length - (i-1)));
-						i--;
-					} else {
-						return done();
-					}
+					return finish();
 				}
-				setTimeout(animate, Story.animateTimeout);
+				update(text);
+				setTimeout(step, self.animateTimeout);
 			})();
 		},
-		animateTimeout: 50,
-		index: 0,
-		running: false
+		index: 0
 	};
 
-	document.addEventListener('DOMContentLoaded', function() {
-		var input = document.getElementById('input'),
-			output = document.getElementById('output').querySelector('iframe'),
-			story = [
-				"HTML.body.div",
-				"HTML.body.div.section",
-				"HTML.body.div.section.only(0)",
-				"HTML.body.div.section.only('#full').ul.li",
-				"HTML.body.div.section.only('#full').ul.li\n  .each('id', 'item${i}')",
-				"HTML.find('#empty')",
-				"HTML.find('#empty').add('h1')",
-				"HTML.find('#empty').add('ul>li{item}*5')",
-				"HTML.find('#empty li').each(function(el, i, all) {\n  el.textContent += ' '+(i+1)+' of '+all.length;\n})",
-				"HTML.find('#empty li').only(function(el, i) {\n  return i % 2;\n}).each('className','odd')",
-				"HTML.find('#empty *').remove()",
-				"//Now you try it out for yourself! Edit me."
-			];
-		Story.start(input, output, story);
-		if (Sintax){ Sintax.highlight(); }
-	});
-
-	window.Story = Story;
-	Story._ = _;
+	window.Demo = Demo;
 
 })(window, document);

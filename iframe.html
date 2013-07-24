@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Frame</title>
+    <style type="text/css">
+		#shadow-dom {
+			display: none;
+		}
+		#text-dom {
+			font-family: Monaco, monospace;
+			font-size: 0.75em;
+			color: #bbbbbb;
+		}
+		.markup {
+			color: #666666;
+		}
+		.tag {
+			color: #777777;
+		}
+		.attr {
+			color: #444444;
+		}
+		.string {
+			color: #999999;
+		}
+		[highlight] {
+			border-radius: 6px;
+			padding: 2px 0;
+			-webkit-animation: flash 1s normal;
+			-moz-animation: flash 1s normal;
+			-o-animation: flash 1s normal;
+			animation: flash 1s normal;
+		}
+		@-webkit-keyframes flash {
+			from { background: #fff; }
+			to { background: transparent; }
+		}
+		@-moz-keyframes flash {
+			from { background: #fff; }
+			to { background: transparent; }
+		}
+		@-o-keyframes flash {
+			from { background: #fff; }
+			to { background: transparent; }
+		}
+		@keyframes flash {
+			from { background: #fff; }
+			to { background: transparent; }
+		}
+    </style>
+</head>
+<body>
+<div id="shadow-dom">
+	<div>
+		<h1><em>Hello world!</em></h1>
+		<section id="empty"></section>
+		<section id="full">
+			<ul>
+				<li>foo</li>
+				<li>bar</li>
+				<li>baz</li>
+				<li>woogie</li>
+			</ul>
+		</section>
+	</div>
+</div>
+<div id="text-dom"></div>
+</body>
+<script src="script/HTML.all.js" type="text/javascript"></script>
+<script src="script/HTML.stringify.js" type="text/javascript"></script>
+<script src="script/iframe.js" type="text/javascript"></script>
+</html>
