@@ -1,4 +1,4 @@
-/*! HTML - v0.9.0 - 2013-07-23
+/*! HTML - v0.9.0 - 2013-07-25
 * http://nbubna.github.io/HTML/
 * Copyright (c) 2013 ESHA Research; Licensed MIT, GPL */
 (function(window, document, Observer) {
@@ -17,9 +17,6 @@
             return list;
         },
         node: function(node) {
-            try{ if (!node) throw 'test';}
-            catch(e){
-                console.log(node, e); }
             if (!node.each) {
                 _.methods(node);
                 _.children(node);
@@ -95,7 +92,7 @@
         },
         field: function(key) {
             var args = _.slice.call(arguments, 1);
-            key = _.fn.each[key] || key;// e.g. _.fn.each['+class'] = 'classList.add';
+            key = _.field[key] || key;// e.g. _.fn.each['+class'] = 'classList.add';
             return function(el, i){ return _.resolve(key, el, args, i); };
         },
         resolve: function(_key, _el, args, i) {
@@ -204,17 +201,17 @@
         _.children(node);
     };
 
-    _.fn.remove = function() {
+    _.fn.remove = function(noDeadEnd) {
         var parents = [];
         this.each(function(node) {
             var parent = node.parentNode;
-            if (parents.indexOf(parent) < 0) {
+            if (noDeadEnd && parents.indexOf(parent) < 0) {
                 parents.push(parent);
             }
             parent.removeChild(node);
             _.updated(parent);
         });
-        return _.list(parents);
+        return noDeadEnd ? _.list(parents) : this;
     };
 
 })(document, HTML._);
