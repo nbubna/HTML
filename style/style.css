@@ -5,7 +5,7 @@ body {
   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   font-weight: 300;
   background: #3d2828;
-  color: #fff;
+  color: #ffffff;
 }
 .wrapper {
   width: 85%;
@@ -72,14 +72,35 @@ code {
 header {
   background: #584221;
   border-bottom: 4px solid #765139;
+  padding-left: 6%;
 }
-header h1 {
-  letter-spacing: -3px;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 3em;
+header .logo {
+  font-family: 'Sirin Stencil', sans-serif;
+  font-size: 3.6em;
+  display: inline-block;
 }
-header h3 {
+header .logo #HTML {
+  color: #ffffff;
+  display: inline-block;
+  left: -2%;
+  letter-spacing: 5px;
+  padding-bottom: 2%;
+  position: relative;
+}
+header .logo #js {
+  font-size: 0.55em;
+  opacity: 0.06;
+  position: relative;
+  left: -3%;
+}
+header .motto {
+  font-family: fantasy, sans-serif;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.06em;
   margin: 2px;
+  text-transform: none;
 }
 header h5 {
   float: right;
@@ -227,12 +248,12 @@ header img {
 }
 footer {
   background: #584221;
-  border-top: 12px solid #765139;
+  border-top: 4px solid #765139;
 }
 footer p {
   text-align: center;
   color: #847851;
-  padding: 48px;
+  padding: 18px;
   margin: 0;
 }
 footer p a {

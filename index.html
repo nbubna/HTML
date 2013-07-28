@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>HTML - The DOM can be your friend.</title>
+    <link href='http://fonts.googleapis.com/css?family=Sirin+Stencil|Eagle+Lake' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="style/reset.css"/>
     <link rel="stylesheet" type="text/css" href="style/style.css"/>
     <link rel="icon" type="image/png" href="image/favicon.png" />
@@ -12,8 +13,10 @@
 			<h5><a href="https://twitter.com/share" class="twitter-share-button" data-via="nadabu">Tweet</a>
 			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 			<a id="github-ribbon" target="_blank" href="https://github.com/nbubna/HTML"><img alt="Fork me on GitHub" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
-			<h1>HTML</h1>
-			<h3>The DOM can be your friend.</h3>
+			<h1 class="logo">
+				<span id="HTML">HTML</span><span id="js">.js</span>
+			</h1>
+			<h3 class="motto">Befriend the DOM!</h3>
 		</div>
 	</header>
 	<div class="content">
@@ -33,13 +36,13 @@
 			</div>
 			<div class="features columns">
 				<div class="third">
-					<h3>Clear and consistent</h3>
-					<p>HTML lets you traverse and search the DOM with simple, readable, consistent code for both nodes and arrays of nodes.</p>
+					<h3>Intuitive</h3>
+					<p>HTML lets you traverse and search the DOM with intuitive, readable, consistent code for both nodes and arrays of nodes.</p>
 				</div><div class="third">
-					<h3>Powerful, flexible Functions</h3>
-					<p>HTML's functions enable you to use native DOM features with brevity, clarity, and more power than ever.</p>
+					<h3>Powerful</h3>
+					<p>HTML's functions enable you to flexibly use native DOM features with brevity, clarity, and more power than ever.</p>
 				</div><div class="third">
-					<h3>Simple extendability</h3>
+					<h3>Extensible</h3>
 					<p>HTML is very easy to extend and adapt to provide just the features you need.</p>
 				</div>
 			</div>
@@ -196,15 +199,15 @@ HTML.find('.foo').each('-class', 'foo').each('+class', 'bar');
 			<h2><a name="FAQ">FAQ</a></h2>
 			<div class="faq">
 				<p class="question">So, another jQuery-lite, eh?</p>
-				<p>Not so much. This doesn't wrap or hide the native DOM for you. It exposes and enhances it, making it your ally instead of trying to protect you from it.</p>
-				<p class="question">Why call it HTML?</p>
-				<p>Succint, self-documenting code is the ideal, and a self-descriptive name is also a great ward against feature creep. HTML is not going to do AJAX or JSON or CSS. It is about interacting with your document's HTML structure in javascript.</p>
+				<p>Not so much. This doesn't wrap or hide the native DOM for you. It exposes and enhances it, making it your ally instead of trying to protect you from it.  Old IE versions are fading; it's time to go native!</p>
+				<p class="question">Why give it the same name as, well, "HTML"?</p>
+				<p>Succint, self-documenting code is the ideal, and a self-descriptive name is also a great ward against feature creep. This HTML javascript library will not be about AJAX or JSON or CSS. It is about interacting with your document's HTML structure in javascript.</p>
 				<p class="question">Which browsers does HTML support?</p>
 				<p>The modern ones: IE9+, Firefox, Safari, Chrome, Opera and the like. Throw in an <a href="https://github.com/kriskowal/es5-shim">es5-shim</a> and older browsers should get everything but the dot-traversal of the DOM.</p>
 				<p class="question">How does the DOM traversal work?</p>
 				<p>By defining lazy object getter functions for child tags. Again, we only do it lazily, on objects you access via this library, to keep the impact small.</p>
 				<p class="question">Hey, this is like <a href="http://dunxrion.github.io/voyeur.js">Voyeur.js</a>...</p>
-				<p>This began as a fork but became much different and much more. The DOM traversal technique and structure of this documentation page are about all that remain of Adrian Cooney's work.</p>
+				<p>This began as a fork but became much different and much more. But the DOM traversal concept and structure of this page do still remain of Adrian Cooney's work.</p>
 				<p class="question">I have a suggestion, where do I put it?</p>
 				<p>I do a happy dance when you <a href="http://github.com/nbubna/HTML">create an issue on Github.</a></p>
 			</div>

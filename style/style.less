@@ -3,6 +3,7 @@
 
 @border: #765139;
 @body: #3D2828;
+@bodyText: #fff;
 @darkBody: #584221;
 @lightBody: #847851;
 @action: #DCB996;
@@ -21,7 +22,7 @@ body {
 	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 	font-weight: 300;
 	background: @body;
-	color: #fff;
+	color: @bodyText;
 }
 .wrapper {
 	width: @content_width;
@@ -35,8 +36,8 @@ body {
 }
 .half { width: 50%; }
 .third { width: 33%; }
-.fifth {width: 20%;}
-.fourfifths {width: 80%;}
+.fifth { width: 20%; }
+.fourfifths { width: 80%; }
 h2 {
 	font-family: "Montserrat", sans-serif;
 	font-weight: 400;
@@ -80,13 +81,34 @@ code {
 header {
 	background: @darkBody;
 	border-bottom: @padding / 3 solid @border;
-	h1 {
-		letter-spacing: -3px; 
-		font-family: 'Open Sans', sans-serif;
-		font-size: 3em;
+	padding-left: 6%;
+	.logo {
+		font-family: 'Sirin Stencil', sans-serif;
+		font-size: 3.6em;
+		display: inline-block;
+		#HTML {
+			color: @bodyText;
+			display: inline-block;
+			left: -2%;
+		    letter-spacing: 5px;
+		    padding-bottom: 2%;
+		    position: relative;
+		}
+		#js {
+			font-size: 0.55em;
+    		opacity: 0.06;
+    		position: relative;
+    		left: -3%;
+		}
 	}
-	h3 {
+	.motto {
+		font-family: fantasy,sans-serif;
+    	font-size: 14px;
+    	font-style: italic;
+    	font-weight: 400;
+    	letter-spacing: 0.06em;
 		margin: 2px;
+		text-transform: none;
 	}
 	h5 {
 		float: right;
@@ -244,11 +266,11 @@ header {
 }
 footer {
 	background: @darkBody;
-	border-top: 12px solid @border;
+	border-top: 4px solid @border;
 	p {	
 		text-align: center;
 		color: @lightBody;
-		padding: @padding * 4;
+		padding: @padding * 1.5;
 		margin: 0;
 		a {
 			color: @action;
