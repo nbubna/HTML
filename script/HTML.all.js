@@ -143,7 +143,9 @@
     } else {
         document.addEventListener("DOMSubtreeModified", _.mutation);
     }
-    if (typeof module !== 'undefined' && module.exports) {
+    if (typeof define === 'function' && define.amd) {
+        define(function(){ return HTML; });
+    } else if (typeof module !== 'undefined' && module.exports) {
         module.exports = HTML;
     } else {
         window.HTML = HTML;
