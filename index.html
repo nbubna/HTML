@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>HTML - The DOM can be your friend.</title>
+    <title>HTML(.js) - Befriend The DOM!</title>
     <link href='http://fonts.googleapis.com/css?family=Sirin+Stencil|Eagle+Lake' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="style/reset.css"/>
     <link rel="stylesheet" type="text/css" href="style/style.css"/>
@@ -14,9 +14,9 @@
 			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 			<a id="github-ribbon" target="_blank" href="https://github.com/nbubna/HTML"><img alt="Fork me on GitHub" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
 			<h1 class="logo">
-				<span id="HTML">HTML</span><span id="js">.js</span>
+				<span id="HTML">HTML</span><span id="js">(.js)</span>
 			</h1>
-			<h3 class="motto">Befriend the DOM!</h3>
+			<h3 class="motto">Befriend The DOM!</h3>
 		</div>
 	</header>
 	<div class="content">
@@ -57,7 +57,7 @@
 					<p>The global HTML is the document <span class="tag">html</span> and all element tags queried via the dot operator are descendants. It's the root element!</p>
 				</article>
 				<article>
-					<h4><a name="dot-traversal">HTML.<span class="variable">tag..</span></a> <span class="returns">HTMLElement|Array</span></h4>
+					<h4><a name="dot-traversal">HTML.<span class="variable">tag...</span></a> <span class="returns">HTMLElement|Array</span></h4>
 					<p>HTML allows you to access document elements via their tag name. If multiple elements of the same tag list exist, an native <em>array</em> of elements is returned otherwise a <code>HTMLElement</code> (or <em>node</em>) is returned. Chaining is fun.</p>
 					<pre class="example">
 HTML.head.title; // returns title element.
@@ -76,14 +76,14 @@ HTML.find("#example").h1.em; // chaining, for the win!
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<span class="variable">tag..</span>.<a name="context.find()">find</a>( <span class="variable">selector</span> ) <span class="returns">HTMLElement|Array</span></h4>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="context.find()">find</a>( <span class="variable">selector</span> ) <span class="returns">HTMLElement|Array</span></h4>
 					<p>Scoped <code>find</code>'s are also acceptable.</p>
 					<pre class="example">
 HTML.body.div.find(".example"); // contextual search!
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<span class="variable">tag..</span>.<a name="each()">each</a>( <span class="variable">callback(<em>element</em>,<em>index</em>,<em>array</em>)</span> ) <span class="returns">HTMLElement|Array</span></h4>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="each()">each</a>( <span class="variable">callback(<em>element</em>,<em>index</em>,<em>array</em>)</span> ) <span class="returns">HTMLElement|Array</span></h4>
 					<p>Use a the current node or array of nodes within a closure. Returns the element or list it was called on.</p>
 					<pre class="example">
 HTML.body.ul.li.each(function(el, i, all) {
@@ -100,7 +100,7 @@ HTML.body.ul.each(function(ul) {// each works on single nodes too
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<span class="variable">tag..</span>.<a name="each(property)">each</a>( <span class="variable">property</span> <span class="variable optional">, arguments</span> ) <span class="returns">HTMLElement|Array</span></h4>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="each(property)">each</a>( <span class="variable">property</span> <span class="variable optional">, arguments</span> ) <span class="returns">HTMLElement|Array</span></h4>
 					<p>Get, set, or invoke the specified property of the current node or array of nodes. Returns either the array of retrieved/returned values or the element/list it was called on.</p>
 					<pre class="example">
 var items = HTML.body.ul.li;
@@ -114,37 +114,38 @@ items.each('classList.add', 'foo');// adds 'foo' class to each item's classList,
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<span class="variable">tag..</span>.<a name="only()">only</a>( <span class="variable">filter</span> <span class="variable optional">, endSlice</span> ) <span class="returns">HTMLElement|Array</span></h4>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="only()">only</a>( <span class="variable">selector|index|filter|slice</span> <span class="variable optional">, endSlice</span> ) <span class="returns">HTMLElement|Array</span></h4>
 					<p>When an array of elements is returned, <code>only</code> allows you to easily filter
 					that list by selector, index, slice, or filtering function.</p>
 					<pre class="example">
 var items = HTML.body.ul.li; // all li elements
 
-items.only('.highlighted'); // li elements that match a selector
+items.only('.highlighted'); // subset that matches selector
 
-items.only(3).innerText = "Fourth li element!";// a single element
+items.only(3).textContent = "Fourth li element!"; // index (single element)
 
-items.only(3, 9).each(function(li, i) { // a slice of li elements
-	li.add('em').innerText = "Emphasized text!";
-});
+items.only(-1).id = 'last'; // negative index works too
 
-items.only(function(el,i) {
-    return !(i % 2);
-});// uses a filter function to only return the even li elements
+items.only(function(o,i){ return !(i%2); }); // filter function returns even elements
+
+items.only(3, 9).each('add', 'em{Emphasized!}');// specific slice of elements
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<span class="variable">tag..</span>.<a name="add()">add</a>(<span class="variable">tag-node-list</span>) <span class="returns">HTMLElement|Array</span></h4>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="add()">add</a>(<span class="variable">tag|Node|Array</span>) <span class="returns">HTMLElement|Array</span></h4>
 					<p>This automatically adds the specified tag or node (or list of those) to the element or array of elements on which it was called.</p>
 					<pre class="example">
 HTML.body.add('div'); // returns a div element
+
 HTML.body.add('div').add('h1'); // returns a h1 element with div parent
+
 HTML.head.add(document.createElement('script'));
+
 HTML.body.add([node1, node2, [ul1, ul2]]); // yummy recursive adding
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<span class="variable">tag..</span>.<a name="add(emmet)">add</a>('<span class="variable">emmet-abbr</span>') <span class="returns">HTMLElement|Array</span></h4>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="add(emmet)">add</a>('<span class="variable">emmet-abbr</span>') <span class="returns">HTMLElement|Array</span></h4>
 					<p>If you are using HTML.all.js or otherwise including the HTML.emmet.js extension, you can use
 					<a href="http://docs.emmet.io/abbreviations/syntax/">emmet abbreviations</a> to add elements to the DOM.
 					This extension supports most emmet features, except grouping and numbering. Those may be added later.</p>
@@ -158,7 +159,7 @@ HTML.body.add('ul>li{item}*10')
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<span class="variable">tag..</span>.<a name="remove()">remove</a>(<span class="variable">keepChaining</span>) <span class="returns">HTMLElement|Array</span></h4>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="remove()">remove</a>(<span class="variable">keepChaining</span>) <span class="returns">HTMLElement|Array</span></h4>
 					<p>This automatically removes the specified node (or list thereof).</p>
 					<pre class="example">
 var foo = HTML.find('.foo').remove(); // returns the removed element(s)
@@ -166,11 +167,19 @@ var barParent = HTML.find('.bar').remove(true); // returns parent(s) of the remo
 </pre>
 				</article>
 				<article>
+					<h4>HTML.<a name="ify()">ify</a>(<span class="variable">HTMLElement|Array</span>) <span class="returns">HTMLElement|Array</span></h4>
+					<p>When you get element(s) from an interface not under HTML's supervision, call this on it, to give it the HTML treatment./p>
+					<pre class="example">
+var node = HTML.ify(someElementOrArrayOfElements);
+node.each(function(el){ console.log('yay!'); });
+</pre>
+				</article>
+				<article>
 					<h4>HTML.<a name="_other">_other</a> <span class="returns">Node|Array</span></h4>
 					<p>On any element, you may access the non-element nodes via <code>._other</code></p>
 					<pre class="example">
 var nodes = HTML.body.section._other;
-var text = nodes.only(function(node){ return node.nodeType == 3; })
+var text = nodes.only(function(node){ return node.nodeType == 3; });
 </pre>
 				</article>
 				<article>
