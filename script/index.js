@@ -13,7 +13,7 @@
 			"HTML.find('#empty').add('ul>li{item}*5')",
 			"HTML.find('#empty li').each(function(el, i, all) {\n  el.textContent += ' '+(i+1)+' of '+all.length;\n})",
 			"HTML.find('#empty li').only(function(el, i) {\n  return i % 2;\n}).each('className','odd')",
-			"HTML.find('#empty *').remove()",
+			"HTML.find('#empty *').remove(true)",
 			"//Now you try it out for yourself! Edit me."
 		]);
 
