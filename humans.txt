@@ -1,0 +1,17 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Nathan Bubna -- lead -- @nadabu
+
+# THANKS
+
+    Adrian Cooney
+    Josiah Bubna
+    Brooke Bubna
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3
+    Modernizr, es5-shim, es5-sham, ie8.js, Sintax
