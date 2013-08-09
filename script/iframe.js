@@ -31,7 +31,9 @@
 			textDom = document.getElementById("text-dom"),
 			stringify = HTML._.fn.stringify._.print,
 			update = function() {
-				textDom.innerHTML = stringify(shadowDom.children[0], true, '');
+				var root = shadowDom.children[0],
+					html = stringify(root, true, '');
+				textDom.innerHTML = html;
 			};
 		HTML._children.body = [shadowDom];
 		shadowDom.addEventListener("DOMSubtreeModified", update);

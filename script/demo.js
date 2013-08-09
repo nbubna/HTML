@@ -56,9 +56,10 @@
 				doc = this.doc(this.output),
 				script = doc.createElement("script"),
 				previous = doc.getElementById("executable");
-			if (code === 'restart') {
+			if (code.trim().indexOf('restart') === 0) {
 				this.restart();
 			} else {
+				code = code.replace('remove()', 'remove(true)');
 				script.innerHTML = code;
 				script.id = "executable";
 				if (previous) {
