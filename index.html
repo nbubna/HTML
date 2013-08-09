@@ -1,14 +1,26 @@
 <!DOCTYPE html>
-<html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
-    <title>HTML(.js) - Befriend The DOM!</title>
-    <link href='http://fonts.googleapis.com/css?family=Sirin+Stencil|Eagle+Lake' rel='stylesheet' type='text/css'>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>HTML(.js) - Befriend the DOM!</title>
+    <meta name="description" content="A small and powerful JavaScript library for using the DOM">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <script src="script/modernizr-2.6.2.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style/reset.css"/>
     <link rel="stylesheet" type="text/css" href="style/style.css"/>
-    <link rel="icon" type="image/png" href="image/favicon.png" />
 </head>
 <body>
-	<header>
+<!--[if lt IE 9]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+    <header>
 		<div class="wrapper">
 			<h5><a href="https://twitter.com/share" class="twitter-share-button" data-via="nadabu">Tweet</a>
 			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
@@ -16,14 +28,15 @@
 			<h1 class="logo">
 				<span id="HTML">HTML</span><span id="js">(.js)</span>
 			</h1>
-			<h3 class="motto">Befriend The DOM!</h3>
+			<h3 class="motto">Befriend the DOM!</h3>
+
 		</div>
 	</header>
 	<div class="content">
 		<div class="wrapper">
 			<div class="info">
-				<p>HTML is a simple, extensible way to work directly with the DOM that won't make you want to pull your hair out.
-				<a href="https://rawgithub.com/nbubna/HTML/master/dist/HTML.all.min.js.gz">HTML.min.js (~2kb)</a>
+				<p>HTML is a small, powerful way for you to enjoy working directly with the DOM. &nbsp; <a class="download" href="https://rawgithub.com/nbubna/HTML/master/dist/HTML.min.js.gz">HTML.min.js (~2.5kb, gzip)</a></p>
+
 			</div>
 			<div class="banner columns">
 				<div class="half">
@@ -43,7 +56,7 @@
 					<p>HTML's functions enable you to flexibly use native DOM features with brevity, clarity, and more power than ever.</p>
 				</div><div class="third">
 					<h3>Extensible</h3>
-					<p>HTML is very easy to extend and adapt to provide just the features you need.</p>
+					<p>HTML has a modular design that is easy to extend, adapt or customize to meet your needs.</p>
 				</div>
 			</div>
 			<div class="info">
@@ -57,15 +70,15 @@
 					<p>The global HTML is the document <span class="tag">html</span> and all element tags queried via the dot operator are descendants. It's the root element!</p>
 				</article>
 				<article>
-					<h4><a name="dot-traversal">HTML.<span class="variable">tag...</span></a> <span class="returns">HTMLElement|Array</span></h4>
-					<p>HTML allows you to access document elements via their tag name. If multiple elements of the same tag list exist, an native <em>array</em> of elements is returned otherwise a <code>HTMLElement</code> (or <em>node</em>) is returned. Chaining is fun.</p>
+					<h4><a name="dot-traversal">HTML.<span class="variable">tag...</span></a> <span class="returns">Element|Array</span></h4>
+					<p>HTML allows you to access document elements via their tag name. If multiple elements of the same tag list exist, an native <em>array</em> of elements is returned otherwise a <code>Element</code> (or <em>node</em>) is returned. Chaining is fun.</p>
 					<pre class="example">
 HTML.head.title; // returns title element.
 HTML.head.title.textContent = "A Better Title!";
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<a name="find()">find</a>( <span class="variable">selector</span> ) <span class="returns">HTMLElement|Array</span></h4>
+					<h4>HTML.<a name="find()">find</a>(<span class="variable">selector</span>) <span class="returns">Element|Array</span></h4>
 					<p><code>HTML.find</code> acts as a proxy for <code>querySelectorAll</code> and returns a <em>HTML'ified</em> node or array of nodes.</p>
 					<pre class="example">
 HTML.find("#example"); // single node returned
@@ -76,19 +89,18 @@ HTML.find("#example").h1.em; // chaining, for the win!
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<span class="variable">tag...</span>.<a name="context.find()">find</a>( <span class="variable">selector</span> ) <span class="returns">HTMLElement|Array</span></h4>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="context.find()">find</a>(<span class="variable">selector</span>) <span class="returns">Element|Array</span></h4>
 					<p>Scoped <code>find</code>'s are also acceptable.</p>
 					<pre class="example">
 HTML.body.div.find(".example"); // contextual search!
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<span class="variable">tag...</span>.<a name="each()">each</a>( <span class="variable">callback(<em>element</em>,<em>index</em>,<em>array</em>)</span> ) <span class="returns">HTMLElement|Array</span></h4>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="each()">each</a>(<span class="variable">callback(<em>element</em>,<em>index</em>,<em>array</em>)</span>) <span class="returns">Element|Array|Object</span></h4>
 					<p>Use a the current node or array of nodes within a closure. Returns the element or list it was called on.</p>
 					<pre class="example">
 HTML.body.ul.li.each(function(el, i, all) {
 	li.textContext = "Item" + (i+1) + " of " + all.length;
-}
 }); // returns li elements
 
 HTML.body.ul.each(function(ul) {// each works on single nodes too
@@ -100,7 +112,7 @@ HTML.body.ul.each(function(ul) {// each works on single nodes too
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<span class="variable">tag...</span>.<a name="each(property)">each</a>( <span class="variable">property</span> <span class="variable optional">, arguments</span> ) <span class="returns">HTMLElement|Array</span></h4>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="each(property)">each</a>(<span class="variable">property</span> <span class="variable optional">, arguments</span>) <span class="returns">Element|Array|Object</span></h4>
 					<p>Get, set, or invoke the specified property of the current node or array of nodes. Returns either the array of retrieved/returned values or the element/list it was called on.</p>
 					<pre class="example">
 var items = HTML.body.ul.li;
@@ -114,7 +126,7 @@ items.each('classList.add', 'foo');// adds 'foo' class to each item's classList,
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<span class="variable">tag...</span>.<a name="only()">only</a>( <span class="variable">selector|index|filter|slice</span> <span class="variable optional">, endSlice</span> ) <span class="returns">HTMLElement|Array</span></h4>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="only()">only</a>(<span class="variable">selector|index|filter|slice</span> <span class="variable optional">, endSlice</span>) <span class="returns">Element|Array</span></h4>
 					<p>When an array of elements is returned, <code>only</code> allows you to easily filter
 					that list by selector, index, slice, or filtering function.</p>
 					<pre class="example">
@@ -131,21 +143,85 @@ items.only(function(o,i){ return !(i%2); }); // filter function returns even ele
 items.only(3, 9).each('add', 'em{Emphasized!}');// specific slice of elements
 </pre>
 				</article>
+<!--
 				<article>
-					<h4>HTML.<span class="variable">tag...</span>.<a name="add()">add</a>(<span class="variable">tag|Node|Array</span>) <span class="returns">HTMLElement|Array</span></h4>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="event(on)">event</a>(<span class="variable">type</span><span class="variable optional">, selector</span>, <span class="variable">function|property</span><span class="variable optional">, args</span>) <span class="returns">Element|Array</span></h4>
+					<p>Registers an event listener for the specified element (or list thereof) and returns the same element (or list thereof).</p>
+					<pre class="example">
+HTML.find('form').event('submit', function(e){ e.preventDefault(); });// the basics
+
+HTML.event('click', '.tab', openTabFn);// event delegation
+
+HTML.event('delete', '.item', 'remove');// each-style shortcut syntax!
+
+HTML.find('.item').event('hide', 'style.display', ['none']);// each-style property set
+
+HTML.event('action', '.item', function(a, b, evt) {
+	console.log('listener for ', evt, ' was bound with:', a, b);
+}, ['bind', 'me']);
+</pre>
+				</article>
+				<article>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="event(once)">event</a>(1, <span class="variable">type</span><span class="variable optional">, selector</span>, <span class="variable">function|property</span><span class="variable optional">, args</span>) <span class="returns">Element|Array</span></h4>
+					<p>Adds a one-time-only event listener for the specified element (or list thereof) and returns the same element (or list thereof).</p>
+					<pre class="example">
+HTML.event(1, 'action', '.item', doActionFn);
+
+HTML.event(1, 'click', '.clickToHide', 'classList.add', ['hidden']);
+</pre>
+				</article>
+				<article>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="event(off)">event</a>(false, <span class="variable">type</span><span class="variable optional">, selector</span>, <span class="variable">function|property</span>) <span class="returns">Element|Array</span></h4>
+					<p>Removes an event listener for the specified element (or list thereof) and returns the same element (or list thereof).</p>
+					<pre class="example">
+var item = HTML.find('#item');
+item.event(false); // remove all event listeners for this element
+
+item.event(false, 'action');// remove all for 'action' event type
+
+item.event(false, 'action', listenFn);// remove this 'action' listener for this element
+
+item.event(false, 'action', null, 'style.display');// remove an each-style listener
+
+HTML.event(false, 'action', '.item');// remove for 'action' type whose target matches '.item'
+
+HTML.event(false, 'action', '.item', listenFn);// removes all for this type, selector, fn
+</pre>
+				</article>
+				<article>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="event()">event</a>(<span class="variable">type</span><span class="variable optional">, data</span><span class="variable optional">, dataFirst</span>) <span class="returns">Element|Array</span></h4>
+					<p>Dispatches an event on the element (or list of elements). Allows attaching of data to be appended to event listeners' arguments, or to precede the event argument
+					when the listener is called.</p>
+					<pre class="example">
+HTML.find('#item').event('delete'); // trigger custom event on one item
+
+HTML.event('action', '.item', function(e, a, b) {
+	console.log('data became args:', a, b);
+});
+var items = HTML.find('.item'); // next, we trigger on multiple items
+items.event('action', ['only a']);// pass some data along as arg a
+items.event('action', ['a','b']); // arrays get expanded in args
+
+items.on('display', 'style.display');// would normally set the event as the display value
+items.event('display', ['none'], true);// unless we tell it to put the data before the event
+</pre>
+				</article>
+-->
+				<article>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="add()">add</a>(<span class="variable">tag|Node|Array</span>) <span class="returns">Element|Array</span></h4>
 					<p>This automatically adds the specified tag or node (or list of those) to the element or array of elements on which it was called.</p>
 					<pre class="example">
 HTML.body.add('div'); // returns a div element
 
 HTML.body.add('div').add('h1'); // returns a h1 element with div parent
 
-HTML.head.add(document.createElement('script'));
+HTML.head.add(document.createElement('div'));
 
 HTML.body.add([node1, node2, [ul1, ul2]]); // yummy recursive adding
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<span class="variable">tag...</span>.<a name="add(emmet)">add</a>('<span class="variable">emmet-abbr</span>') <span class="returns">HTMLElement|Array</span></h4>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="add(emmet)">add</a>('<span class="variable">emmet-abbr</span>') <span class="returns">Element|Array</span></h4>
 					<p>If you are using HTML.all.js or otherwise including the HTML.emmet.js extension, you can use
 					<a href="http://docs.emmet.io/abbreviations/syntax/">emmet abbreviations</a> to add elements to the DOM.
 					This extension supports most emmet features, except grouping and numbering. Those may be added later.</p>
@@ -159,19 +235,18 @@ HTML.body.add('ul>li{item}*10')
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<span class="variable">tag...</span>.<a name="remove()">remove</a>(<span class="variable">keepChaining</span>) <span class="returns">HTMLElement|Array</span></h4>
-					<p>This automatically removes the specified node (or list thereof).</p>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="remove()">remove</a>() <span class="returns">undefined|Array</span></h4>
+					<p>Removes the specified node (or list thereof). Some browsers provide this natively for elements, for the few who don't this fills the gap and enables use of it on arrays of elements. When called on a list, it returns the list of deleted items.</p>
 					<pre class="example">
-var foo = HTML.find('.foo').remove(); // returns the removed element(s)
-var barParent = HTML.find('.bar').remove(true); // returns parent(s) of the removed element
+HTML.find('.foo').remove();
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<a name="ify()">ify</a>(<span class="variable">HTMLElement|Array</span>) <span class="returns">HTMLElement|Array</span></h4>
-					<p>When you get element(s) from an interface not under HTML's supervision, call this on it to give it HTML properties and functions./p>
+					<h4>HTML.<a name="ify()">ify</a>(<span class="variable">Element|Array</span>) <span class="returns">Element|Array</span></h4>
+					<p>When you get element(s) from an interface not under HTML's supervision, call this on it to give it HTML properties and functions.</p>
 					<pre class="example">
 var node = HTML.ify(someElementOrArrayOfElements);
-node.each(function(el){ console.log('yay!'); });
+node.each(function(el){ console.log(el, ' is your friend!'); });
 </pre>
 				</article>
 				<article>
@@ -184,19 +259,17 @@ var text = nodes.only(function(node){ return node.nodeType == 3; });
 				</article>
 				<article>
 					<h4>HTML.<a name="_.fn">_.fn</a>.[<span class="variable">name</span>] = <span class="variable">function</span>;</h4>
-					<p>Use this to create your own plugins that extend the DOM.</p>
+					<p>Use this to create your own plugins that extend the DOM, but remember to tread lightly! HTML is about learning and using the DOM, not obscuring it beneath foreign interfaces.</p>
 					<pre class="example">
-HTML._.fn.on = function(event, callback) {
-	return this.each(function(el) {
-		el.addEventListener(event, callback);
-	});	
+HTML._.fn.hide = function() {
+	return this.each('style.display', 'none');	
 };
-HTML.body.nav.a.on('click', goToSection);
+HTML.find('.foo').hide();
 </pre>
 				</article>
 				<article>
 					<h4>HTML.<a name="_.field">_.field</a>[<span class="variable">alias</span>] = <span class="variable">property</span>;</h4>
-					<p>You may create property aliases for <code>each</code>.</p>
+					<p>Occasionally, the verbosity of the DOM can, like any friend, become tiresome. You may create property aliases for <code>each</code>.</p>
 					<pre class="example">
 HTML._.field['-class'] = 'classList.remove';
 HTML._.field['+class'] = 'classList.add';
@@ -208,15 +281,17 @@ HTML.find('.foo').each('-class', 'foo').each('+class', 'bar');
 			<h2><a name="FAQ">FAQ</a></h2>
 			<div class="faq">
 				<p class="question">So, another jQuery-lite, eh?</p>
-				<p>Not so much. This doesn't wrap or hide the native DOM for you. It exposes and enhances it, making it your ally instead of trying to protect you from it.  Old IE versions are fading; it's time to go native!</p>
+				<p>Not so much. This doesn't wrap or hide the DOM for you. It exposes and enhances it, making it your ally instead of trying to protect you from it. Old IE versions are fading; it's time to go native!</p>
 				<p class="question">Why give it the same name as, well, "HTML"?</p>
-				<p>Succint, self-documenting code is the ideal, and a self-descriptive name is also a great ward against feature creep. This HTML javascript library will not be about AJAX or JSON or CSS. It is about interacting with your document's HTML structure in javascript.</p>
+				<p>Succint, self-documenting code is the ideal, and a self-descriptive name is also a great ward against feature creep. This HTML javascript library will not be about AJAX or JSON or CSS. It is about interacting with your document's HTML structure in javascript. To wit, it just fits.</p>
 				<p class="question">Which browsers does HTML support?</p>
-				<p>The modern ones: IE9+, Firefox, Safari, Chrome, Opera and the like. Throw in an <a href="https://github.com/kriskowal/es5-shim">es5-shim</a> and older browsers should get everything but the dot-traversal of the DOM.</p>
+				<p>The modern ones: IE9+, Firefox, Safari, Chrome, Opera and the like. With some <a href="https://github.com/kriskowal/es5-shim">judicious</a> <a href="https://github.com/WebReflection/ie8">polyfilling</a> you could get IE8 to support everything but the dot-traversal syntax, but i'd argue there are <a href="http://browsehappy.com">better solutions</a>.</p>
+				<p class="question">Isn't extending the DOM <a href="http://perfectionkills.com/whats-wrong-with-extending-the-dom/">a bad idea</a>?</p>
+				<p>Only if you care to prop up the diminishing market share of IE6/7/8. For those working on the future, <a href="https://github.com/nbubna/mind-hacking/blob/gh-pages/extending-the-dom.md">DOM extension is no longer to be feared.</a></p>
 				<p class="question">How does the DOM traversal work?</p>
 				<p>By defining lazy object getter functions for child tags. Again, we only do it lazily, on objects you access via this library, to keep the impact small.</p>
 				<p class="question">Hey, this is like <a href="http://dunxrion.github.io/voyeur.js">Voyeur.js</a>...</p>
-				<p>This began as a fork but became much different and much more. But the DOM traversal concept and structure of this page do still remain of Adrian Cooney's work.</p>
+				<p>This began as a fork but became much different and much more. Adrian Cooney's delightful DOM traversal concept remains in play, as do the essentials of his lovely demo and site.</p>
 				<p class="question">I have a suggestion, where do I put it?</p>
 				<p>I do a happy dance when you <a href="http://github.com/nbubna/HTML">create an issue on Github.</a></p>
 			</div>
@@ -229,6 +304,7 @@ HTML.find('.foo').each('-class', 'foo').each('+class', 'bar');
 		</div>
 	</footer>
 </body>
+<script src="script/ie8.min.js" type="text/javascript"></script>
 <script src="script/es5-shim.min.js" type="text/javascript"></script>
 <script src="script/es5-sham.min.js" type="text/javascript"></script>
 <script src="script/HTML.all.js" type="text/javascript"></script>
@@ -236,13 +312,11 @@ HTML.find('.foo').each('-class', 'foo').each('+class', 'bar');
 <script src="script/demo.js" type="text/javascript"></script>
 <script src="script/index.js" type="text/javascript"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-42479338-1', 'nbubna.github.io');
-  ga('send', 'pageview');
-
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    e.src='//www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-42479338-1');ga('send','pageview');
 </script>
 </html>

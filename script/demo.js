@@ -21,6 +21,10 @@
 			this._exec = function(){ self.execute(); };
 			setTimeout(this._next, this.intentTimeout);
 		},
+		restart: function() {
+			this.index = 0;
+			this.next();
+		},
 		next: function() {
 			var code = this.story[this.index],
 				self = this;
@@ -52,13 +56,16 @@
 				doc = this.doc(this.output),
 				script = doc.createElement("script"),
 				previous = doc.getElementById("executable");
-
-			script.innerHTML = code;
-			script.id = "executable";
-			if (previous) {
-				doc.body.removeChild(previous);
+			if (code === 'restart') {
+				this.restart();
+			} else {
+				script.innerHTML = code;
+				script.id = "executable";
+				if (previous) {
+					doc.body.removeChild(previous);
+				}
+				doc.body.appendChild(script);
 			}
-			doc.body.appendChild(script);
 		},
 		animate: function(text, next, update, finish) {
 			var i = text.length, self = this;

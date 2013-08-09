@@ -1,6 +1,12 @@
 @import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
 
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,800,700,300);
+@font-face {
+  font-family: 'Eagle Lake';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Eagle Lake'), local('EagleLake-Regular'), url(http://themes.googleusercontent.com/static/fonts/eaglelake/v1/7iuL6oiKGY2Q5j9N_W6Qtb3hpw3pgy2gAi-Ip7WPMi0.woff) format('woff');
+}
 body {
   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   font-weight: 300;
@@ -72,10 +78,9 @@ code {
 header {
   background: #584221;
   border-bottom: 4px solid #765139;
-  padding-left: 6%;
 }
 header .logo {
-  font-family: 'Sirin Stencil', sans-serif;
+  font-family: 'Eagle Lake', fantasy, serif;
   font-size: 3.6em;
   display: inline-block;
 }
@@ -83,24 +88,27 @@ header .logo #HTML {
   color: #ffffff;
   display: inline-block;
   left: -2%;
-  letter-spacing: 5px;
+  letter-spacing: 3px;
   padding-bottom: 2%;
   position: relative;
 }
 header .logo #js {
-  font-size: 0.55em;
-  opacity: 0.06;
+  font-size: 0.6em;
+  opacity: 0.14;
   position: relative;
   left: -3%;
+  top: -2px;
 }
 header .motto {
-  font-family: fantasy, sans-serif;
-  font-size: 14px;
+  font-family: Georgia, fantasy, serif;
+  font-size: 1.1em;
   font-style: italic;
   font-weight: 400;
-  letter-spacing: 0.06em;
-  margin: 2px;
+  letter-spacing: 0.08em;
+  margin: 1% 2%;
   text-transform: none;
+  color: #E7875E;
+  display: inline-block;
 }
 header h5 {
   float: right;
@@ -129,6 +137,14 @@ header img {
   height: auto;
   max-width: 100%;
   vertical-align: middle;
+}
+.download {
+  text-decoration: underline;
+}
+@media (max-width: 320px) {
+  header .logo {
+    font-size: 3.2em;
+  }
 }
 .info {
   text-align: center;
@@ -165,7 +181,7 @@ header img {
   height: inherit;
 }
 .features h3 {
-  font-size: 22px;
+  font-size: 1.2em;
   font-family: "Open Sans", Helvetica, Arial;
   text-transform: none;
   margin-bottom: 9px;
@@ -177,12 +193,12 @@ header img {
   color: #d6c1c1;
 }
 .api article {
-  padding-bottom: 18px;
+  padding-bottom: 0.8em;
 }
 .api article h4 {
   font-family: Monaco, monospace;
   margin: 18px;
-  font-size: 22px;
+  font-size: 1.2em;
   color: #cfd59c;
 }
 .api article h4 .returns {
@@ -258,4 +274,75 @@ footer p {
 }
 footer p a {
   color: #dcb996;
+}
+/* ==========================================================================
+   Browse Happy prompt
+   ========================================================================== */
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+/* ==========================================================================
+   Print styles.
+   Inlined to avoid required HTTP connection: h5bp.com/r
+   ========================================================================== */
+@media print {
+  * {
+    background: transparent !important;
+    color: #000 !important;
+    /* Black prints faster: h5bp.com/s */
+  
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+  abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+  /*
+       * Don't show links for images, or javascript/internal links
+       */
+  .ir a:after,
+  a[href^="javascript:"]:after,
+  a[href^="#"]:after {
+    content: "";
+  }
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+  thead {
+    display: table-header-group;
+    /* h5bp.com/t */
+  
+  }
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+  img {
+    max-width: 100% !important;
+  }
+  @page  {
+    margin: 0.5cm;
+  }
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
 }
