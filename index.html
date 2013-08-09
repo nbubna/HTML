@@ -35,7 +35,7 @@
 	<div class="content">
 		<div class="wrapper">
 			<div class="info">
-				<p>HTML is a small, powerful way for you to enjoy working directly with the DOM. &nbsp; <a class="download" href="https://rawgithub.com/nbubna/HTML/master/dist/HTML.min.js.gz">HTML.min.js (~2.5kb, gzip)</a></p>
+				<p>HTML is a small, powerful way for you to enjoy working directly with the DOM. &nbsp; <a class="download" href="https://rawgithub.com/nbubna/HTML/master/dist/HTML.all.min.js.gz">HTML.min.js (~2.7kb, gzip)</a></p>
 
 			</div>
 			<div class="banner columns">
@@ -171,39 +171,34 @@ HTML.event(1, 'click', '.clickToHide', 'classList.add', ['hidden']);
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<span class="variable">tag...</span>.<a name="event(off)">event</a>(false, <span class="variable">type</span><span class="variable optional">, selector</span>, <span class="variable">function|property</span>) <span class="returns">Element|Array</span></h4>
-					<p>Removes an event listener for the specified element (or list thereof) and returns the same element (or list thereof).</p>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="event(off)">event</a>(0, <span class="variable">type</span><span class="variable optional">, selector</span>, <span class="variable">function|property</span>) <span class="returns">Element|Array</span></h4>
+					<p>Zero-out event listener(s) for the specified element(s) and return the same element(s).</p>
 					<pre class="example">
 var item = HTML.find('#item');
-item.event(false); // remove all event listeners for this element
+item.event(0); // remove all event listeners for this element
 
-item.event(false, 'action');// remove all for 'action' event type
+item.event(0, 'action');// remove all for 'action' event type
 
-item.event(false, 'action', listenFn);// remove this 'action' listener for this element
+item.event(0, 'action', listenFn);// remove this 'action' listener for this element
 
-item.event(false, 'action', null, 'style.display');// remove an each-style listener
+item.event(0, 'action', null, 'style.display');// remove an each-style listener
 
-HTML.event(false, 'action', '.item');// remove for 'action' type whose target matches '.item'
+HTML.event(0, 'action', '.item');// remove for 'action' type whose target matches '.item'
 
-HTML.event(false, 'action', '.item', listenFn);// removes all for this type, selector, fn
+HTML.event(0, 'action', '.item', listenFn);// removes all for this type, selector, fn
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<span class="variable">tag...</span>.<a name="event()">event</a>(<span class="variable">type</span><span class="variable optional">, data</span><span class="variable optional">, dataFirst</span>) <span class="returns">Element|Array</span></h4>
-					<p>Dispatches an event on the element (or list of elements). Allows attaching of data to be appended to event listeners' arguments, or to precede the event argument
-					when the listener is called.</p>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="event()">event</a>(<span class="variable">type</span><span class="variable optional">, data</span>) <span class="returns">Element|Array</span></h4>
+					<p>Dispatches an event on the element (or list of elements). Allows passing of data to be appended to event listeners' arguments (kept on the event as event.data)</p>
 					<pre class="example">
 HTML.find('#item').event('delete'); // trigger custom event on one item
 
 HTML.event('action', '.item', function(e, a, b) {
-	console.log('data became args:', a, b);
+	console.log(e.data, 'became args:', a, b);
 });
 var items = HTML.find('.item'); // next, we trigger on multiple items
-items.event('action', ['only a']);// pass some data along as arg a
-items.event('action', ['a','b']); // arrays get expanded in args
-
-items.on('display', 'style.display');// would normally set the event as the display value
-items.event('display', ['none'], true);// unless we tell it to put the data before the event
+items.event('action', ['a','b']); // while adding a few args for the callback
 </pre>
 				</article>
 -->
