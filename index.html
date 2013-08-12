@@ -101,7 +101,7 @@ HTML.body.div.find(".example"); // contextual search!
 					<p>Use a the current node or array of nodes within a closure. Returns the element or list it was called on.</p>
 					<pre class="example">
 HTML.body.ul.li.each(function(el, i, all) {
-	li.textContext = "Item" + (i+1) + " of " + all.length;
+	li.textContent = "Item" + (i+1) + " of " + all.length;
 }); // returns li elements
 
 HTML.body.ul.each(function(ul) {// each works on single nodes too
@@ -155,7 +155,7 @@ HTML.event('click', '.tab', openTabFn);// event delegation
 
 HTML.event('delete', '.item', 'remove');// each-style shortcut syntax!
 
-HTML.find('.item').event('hide', 'style.display', ['none']);// each-style property set
+HTML.find('.item').event('click', 'classList.toggle', ['active']);// each-style property set
 
 HTML.event('action', '.item', function(a, b, evt) {
 	console.log('listener for ', evt, ' was bound with:', a, b);
