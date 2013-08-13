@@ -9,6 +9,7 @@
     "email": "nathan@esha.com",
     "url": "http://www.esha.com"
   },
+  "main": "dist/HTML.min.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/nbubna/HTML.git"
