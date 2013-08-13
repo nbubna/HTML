@@ -101,7 +101,7 @@ HTML.body.div.find(".example"); // contextual search!
 					<p>Use a the current node or array of nodes within a closure. Returns the element or list it was called on.</p>
 					<pre class="example">
 HTML.body.ul.li.each(function(el, i, all) {
-	li.textContent = "Item" + (i+1) + " of " + all.length;
+	el.textContent = "Item " + (i+1) + " of " + all.length;
 }); // returns li elements
 
 HTML.body.ul.each(function(ul) {// each works on single nodes too
