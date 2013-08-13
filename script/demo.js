@@ -87,4 +87,13 @@
 
 	window.Demo = Demo;
 
+	// we need a chainable remove() for the demo
+	try {
+		var _remove = HTMLElement.prototype.remove;
+		HTMLElement.prototype.remove = function(chain) {
+			var ret = _.remove.apply(this, arguments);
+			return chain ? this : ret;
+		};
+	} catch (e) {}
+
 })(window, document);
