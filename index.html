@@ -36,7 +36,7 @@
 	<div class="content">
 		<div class="wrapper">
 			<div class="info">
-				<p>HTML is a small, powerful way for you to enjoy working directly with the DOM. &nbsp; <a class="download" href="https://rawgithub.com/nbubna/HTML/master/dist/HTML.all.min.js.gz">HTML.min.js (~2.7kb, gzip)</a></p>
+				<p>HTML is a small, powerful way for you to enjoy working directly with the DOM. &nbsp; <a class="download" href="https://rawgithub.com/nbubna/HTML/master/dist/HTML.min.js.gz">HTML.min.js (~2.7kb, gzip)</a></p>
 
 			</div>
 			<div class="banner columns">
@@ -263,15 +263,17 @@ HTML._.fn.hide = function() {
 HTML.find('.foo').hide();
 </pre>
 				</article>
+<!--
 				<article>
-					<h4>HTML.<a name="_.field">_.field</a>[<span class="variable">alias</span>] = <span class="variable">property</span>;</h4>
+					<h4>HTML.<a name="_.resolve">_.field</a>[<span class="variable">alias</span>] = <span class="variable">property</span>;</h4>
 					<p>Occasionally, the verbosity of the DOM can, like any friend, become tiresome. You may create property aliases for <code>each</code>.</p>
 					<pre class="example">
-HTML._.field['-class'] = 'classList.remove';
-HTML._.field['+class'] = 'classList.add';
+HTML._.resolve['-class'] = 'classList.remove';
+HTML._.resolve['+class'] = 'classList.add';
 HTML.find('.foo').each('-class', 'foo').each('+class', 'bar');
 </pre>
 				</article>
+-->
 			</div>
 			<hr>
 			<h2><a name="FAQ">FAQ</a></h2>
