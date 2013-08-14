@@ -10,7 +10,7 @@
 	Demo.prototype = {
 		intentTimeout: 1000,
 		animateTimeout: 50,
-		nextTimeout: 2000,
+		nextTimeout: 4000,
 		start: function(input, output, story) {
 			this.input = input;
 			this.output = output;
