@@ -62,4 +62,4 @@
         return noDeadEnd ? _.list(parents) : this;
     };
 
-})(document, HTML._);
+})(document, document.documentElement._);

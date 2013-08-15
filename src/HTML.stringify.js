@@ -98,4 +98,4 @@
         }
     };
 
-})(window, document, HTML);
+})(window, document, document.documentElement);
