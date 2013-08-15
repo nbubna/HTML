@@ -13,13 +13,6 @@
 
 	document.addEventListener("DOMContentLoaded", function() {
 		// modify iframe's HTML instance to handle the demo content
-		var _nodeFn = HTML._.node;
-		HTML._.node = function() {
-			var el = _nodeFn.apply(this, arguments);
-			elementsSelected([el]);
-			return el;
-		};
-
 		var _listFn = HTML._.list;
 		HTML._.list = function() {
 			var ret = _listFn.apply(this, arguments);
