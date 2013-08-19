@@ -51,7 +51,7 @@
 			<div class="features columns">
 				<div class="third">
 					<h3>Intuitive</h3>
-					<p>HTML lets you traverse and search the DOM with intuitive, readable, consistent code for both nodes and arrays of nodes.</p>
+					<p>HTML lets you traverse, search and manipulate the DOM with intuitive, readable, consistent code.</p>
 				</div><div class="third">
 					<h3>Powerful</h3>
 					<p>HTML's functions enable you to flexibly use native DOM features with brevity, clarity, and more power than ever.</p>
@@ -86,7 +86,7 @@ HTML.find("#example"); // single node returned
 
 HTML.find(".example"); // Array of nodes returned if more than one, otherwise a node
 
-HTML.find("#example").h1.em; // chaining, for the win!
+HTML.find("#example").h1.em; // chain on, man.
 </pre>
 				</article>
 				<article>
@@ -100,7 +100,7 @@ HTML.body.div.find(".example"); // contextual search!
 					<h4>HTML.<span class="variable">tag...</span>.<a name="each()">each</a>(<span class="variable">callback(<em>element</em>,<em>index</em>,<em>array</em>)</span>) <span class="returns">Element|Array|Object</span></h4>
 					<p>Use a the current node or array of nodes within a closure. Returns the element or list it was called on.</p>
 					<pre class="example">
-HTML.body.ul.li.each(function(el, i, all) {
+HTML.find('li').each(function(el, i, all) {
 	el.textContent = "Item " + (i+1) + " of " + all.length;
 }); // returns li elements
 
@@ -141,7 +141,7 @@ items.only(-1).id = 'last'; // negative index works too
 
 items.only(function(o,i){ return !(i%2); }); // filter function returns even elements
 
-items.only(3, 9).each('add', 'em{Emphasized!}');// specific slice of elements
+items.only(3, 9).each('add', 'button');// specific slice of elements
 </pre>
 				</article>
 <!--
@@ -218,7 +218,7 @@ HTML.body.add([node1, node2, [ul1, ul2]]); // yummy recursive adding
 				</article>
 				<article>
 					<h4>HTML.<span class="variable">tag...</span>.<a name="add(emmet)">add</a>('<span class="variable">emmet-abbr</span>') <span class="returns">Element|Array</span></h4>
-					<p>If you are using HTML.all.js or otherwise including the HTML.emmet.js extension, you can use
+					<p>The standard HTML.js artifact comes with the "emmet" extension, which lets you use
 					<a href="http://docs.emmet.io/abbreviations/syntax/">emmet abbreviations</a> to add elements to the DOM.
 					This extension supports most emmet features, except grouping and numbering. Those may be added later.</p>
 					<pre class="example">
@@ -232,7 +232,7 @@ HTML.body.add('ul>li{item}*10')
 				</article>
 				<article>
 					<h4>HTML.<span class="variable">tag...</span>.<a name="remove()">remove</a>() <span class="returns">undefined|Array</span></h4>
-					<p>Removes the specified node (or list thereof). Some browsers provide this natively for elements, for the few who don't this fills the gap and enables use of it on arrays of elements. When called on a list, it returns the list of deleted items.</p>
+					<p>Removes the specified node (or list thereof). Some browsers provide this natively for elements, for the few who don't this polyfills the gap and enables use of it on arrays of elements. When called on a list, it returns the list of deleted items.</p>
 					<pre class="example">
 HTML.find('.foo').remove();
 </pre>
@@ -241,7 +241,9 @@ HTML.find('.foo').remove();
 					<h4>HTML.<a name="ify()">ify</a>(<span class="variable">Element|Array</span>) <span class="returns">Element|Array</span></h4>
 					<p>When you get element(s) from an interface not under HTML's supervision, call this on it to give it HTML properties and functions.</p>
 					<pre class="example">
-var node = HTML.ify(someElementOrArrayOfElements);
+if (!('each' in node)) {
+	HTML.ify(node);
+}
 node.each(function(el){ console.log(el, ' is your friend!'); });
 </pre>
 				</article>
@@ -279,15 +281,19 @@ HTML.find('.foo').each('-class', 'foo').each('+class', 'bar');
 			<h2><a name="FAQ">FAQ</a></h2>
 			<div class="faq">
 				<p class="question">So, another jQuery-lite, eh?</p>
-				<p>Not so much. This doesn't wrap or hide the DOM for you. It exposes and enhances it, making it your ally instead of trying to protect you from it. Old IE versions are fading; it's time to go native!</p>
+				<p>Not so much. This doesn't wrap or hide the DOM for you. It exposes and enhances it, making it your ally instead of trying to protect you from it. The goal is to "befriend the DOM" instead of replacing it with an alternate API.</p>
 				<p class="question">Why give it the same name as, well, "HTML"?</p>
 				<p>Succint, self-documenting code is the ideal, and a self-descriptive name is also a great ward against feature creep. This HTML javascript library will not be about AJAX or JSON or CSS. It is about interacting with your document's HTML structure in javascript. To wit, it just fits.</p>
 				<p class="question">Which browsers does HTML support?</p>
-				<p>The modern ones: IE9+, Firefox, Safari, Chrome, Opera and the like. With some <a href="https://github.com/kriskowal/es5-shim">judicious</a> <a href="https://github.com/WebReflection/ie8">polyfilling</a> you could get IE8 to support everything but the dot-traversal syntax, but i'd argue there are <a href="http://browsehappy.com">better solutions</a>.</p>
+				<p>Only the modern ones: Firefox, Chrome, Safari, Opera, IE9+ and the like. With some <a href="https://github.com/kriskowal/es5-shim">judicious</a> <a href="https://github.com/WebReflection/ie8">polyfilling</a> you might get IE8 to support everything but the dot-traversal syntax, but i'd argue there are <a href="http://browsehappy.com">better solutions</a>.</p>
 				<p class="question">Isn't extending the DOM <a href="http://perfectionkills.com/whats-wrong-with-extending-the-dom/">a bad idea</a>?</p>
-				<p>Only if you care to prop up the diminishing market share of IE6/7/8. For those working on the future, <a href="https://github.com/nbubna/mind-hacking/blob/gh-pages/extending-the-dom.md">DOM extension is no longer to be feared.</a></p>
+				<p>Only if you care to prop up the diminishing market share of IE6/7/8. For those working on the future, <a href="https://github.com/nbubna/mind-hacking/blob/gh-pages/extending-the-dom.md">smart DOM extension</a> is no longer to be feared.</p>
 				<p class="question">How does the DOM traversal work?</p>
 				<p>By defining lazy object getter functions for child tags. Again, we only do it lazily, on objects you access via this library, to keep the impact small.</p>
+				<p class="question">Aren't those long dot-traversal chains a bad idea when pages are so dynamic?</p>
+				<p>Yes, just as complex CSS selectors ares. Use <code>find()</code> with classes and ids when doing "whole page" work. Dot-traversal is best for small, well-defined node structures as found within components.</p>
+				<p class="question">Functions that return either elements or arrays are bad. I saw it get ugly once!</p>
+				<p>Different contexts, different code, different techniques. Here's the rules for doing things right with HTML: 1) If you are certain you have one result (e.g. <code>HTML.find('#foo')</code>, <code>list.only(1)</code> or within <code>each(callback)</code> or <code>only(filter)</code> functions), then you can call DOM methods directly. 2) In all other situations, use HTML's functions (especially <code>each('property')</code>) to abstract the difference between one or more elements. You don't need to write branching code (like plain DOM) or use a wrapper object (like jQuery) to do that abstraction; HTML's functions do it superbly.</p>
 				<p class="question">Hey, this is like <a href="http://dunxrion.github.io/voyeur.js">Voyeur.js</a>...</p>
 				<p>This began as a fork but became much different and much more. Adrian Cooney's delightful DOM traversal concept remains in play, as do the essentials of his lovely demo and site.</p>
 				<p class="question">I have a suggestion, where do I put it?</p>
