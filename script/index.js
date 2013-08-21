@@ -14,7 +14,7 @@
 			"HTML.find('#empty li').each(function(el, i, all) {\n  el.textContent += ' '+(i+1)+' of '+all.length;\n})",
 			"HTML.find('#empty li').only(function(el, i) {\n  return i % 2;\n}).each('className','odd')",
 			"HTML.find('#empty *').remove()",
-			"//Now you try it out for yourself! Edit me."
+			"//Now try it out yourself! Edit me.\n//One second after you stop typing, the example will be run.\n//Type `restart` to rerun the demos."
 		]);
 
 		Sintax.highlight();

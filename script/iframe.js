@@ -5,7 +5,7 @@
 		if (!elements.forEach){ elements = [elements]; }
 		timeout = setTimeout(function() {
 			elements.forEach(highlight);
-			setTimeout(function(){ elements.forEach(unhighlight); }, 1000)
+			setTimeout(function(){ elements.forEach(unhighlight); }, 2000)
 		}, 100);
 	};
 	function highlight(el){ el.setAttribute('_highlight', 'true'); }
