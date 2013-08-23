@@ -9,34 +9,40 @@
 	};
 	Demo.prototype = {
 		intentTimeout: 1000,
-		animateTimeout: 50,
-		nextTimeout: 2000,
+		animateTimeout: 35,
+		tickFactor: 250,
 		start: function(input, output, story) {
 			this.input = input;
 			this.output = output;
 			this.story = story;
 			this.intent(input);
-			var self = this;
-			this._next = function(){ self.next(); };
+			var self = this,
+				next = function(){ self.next(); };
 			this._exec = function(){ self.execute(); };
-			setTimeout(this._next, this.intentTimeout);
+			this._tick = function() {
+				if (self.index){ self.execute(); }
+				setTimeout(next, self.calcPause());
+			};
+			this._tick();
 		},
 		restart: function() {
 			this.index = 0;
 			this.next();
 		},
 		next: function() {
-			var code = this.story[this.index],
-				self = this;
+			var code = this.story[this.index];
 			if (code) {
-				this.animate(input.value, code, function(text) {
-					input.value = text;
-				}, function() {
-					self._exec();
-					setTimeout(self._next, self.nextTimeout);
-				});
+				this.animate(this.input.value, code, function(s){ input.value = s; }, this._tick);
 				this.index++;
 			}
+		},
+		calcPause: function() {
+			// base pause of current line, not next line
+			var code = this.story[this.index-1] || '';
+			// first line and comments go instantly
+			return !code || (code.indexOf('//') === 0 && code.indexOf('\n') < 0) ? 0 :
+				// others default to 250ms per symbol, with a minimum of 2s
+				Math.max(code.replace(/\w|\s/g, '').length, 8) * this.tickFactor;
 		},
 		intent: function(el) {
 			var timeout, self = this;
