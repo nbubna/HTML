@@ -13,6 +13,7 @@
 @apiExample: #E8AE3B;
 @apiQuote: #8C9D34;
 @apiComment: #FEECC9;
+@apiSince: #CFD59C;
 @content_width: 85%;
 @margin: 18px;
 @padding: 12px;
@@ -235,6 +236,18 @@ header {
 			}
 			.optional:after {
 				content: ']';
+			}
+			.since {
+				font-size: 50%;
+				background-color: @apiSince;
+				color: @body;
+				padding: 0px 2px;
+			}
+			.since:before {
+				content: 'v';
+			}
+			.since:after {
+				content: '+';
 			}
 		}
 		p {

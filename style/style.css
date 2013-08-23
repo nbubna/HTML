@@ -225,6 +225,18 @@ header img {
 .api article h4 .optional:after {
   content: ']';
 }
+.api article h4 .since {
+  font-size: 50%;
+  background-color: #cfd59c;
+  color: #3d2828;
+  padding: 0px 2px;
+}
+.api article h4 .since:before {
+  content: 'v';
+}
+.api article h4 .since:after {
+  content: '+';
+}
 .api article p em {
   font-style: italic;
 }
