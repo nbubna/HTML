@@ -8,9 +8,13 @@
 		this.start(input, output, story);
 	};
 	Demo.prototype = {
-		intentTimeout: 1000,
-		animateTimeout: 35,
-		tickFactor: 250,
+		timing: {
+			intent: 1000,
+			backspace: 25,
+			typing: 50,
+			tick: 250,
+			minTicks: 8
+		},
 		start: function(input, output, story) {
 			this.input = input;
 			this.output = output;
@@ -42,13 +46,13 @@
 			// first line and comments go instantly
 			return !code || (code.indexOf('//') === 0 && code.indexOf('\n') < 0) ? 0 :
 				// others default to 250ms per symbol, with a minimum of 2s
-				Math.max(code.replace(/\w|\s/g, '').length, 8) * this.tickFactor;
+				Math.max(code.replace(/\w|\s/g, '').length, this.timing.minTicks) * this.timing.tick;
 		},
 		intent: function(el) {
 			var timeout, self = this;
 			el.addEventListener("keydown", function() {
 				if (timeout){ clearTimeout(timeout); }
-				timeout = setTimeout(self._exec, self.intentTimeout);
+				timeout = setTimeout(self._exec, self.timing.intent);
 			});
 		},
 		doc: function(o) {
@@ -75,17 +79,19 @@
 			}
 		},
 		animate: function(text, next, update, finish) {
-			var i = text.length, self = this;
+			var i = text.length, self = this, action = 'typing';
 			(function step() {
-				if (next.indexOf(text) < 0) {// backspace
+				if (next.indexOf(text) < 0) {
+					action = 'backspace';
 					text = text.substr(0, --i);
-				} else if (i < next.length) {// type
+				} else if (i < next.length) {
+					action = 'typing';
 					text = next.substr(0, ++i);
 				} else {
 					return finish();
 				}
 				update(text);
-				setTimeout(step, self.animateTimeout);
+				setTimeout(step, self.timing[action]);
 			})();
 		},
 		index: 0
