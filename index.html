@@ -264,17 +264,18 @@ HTML._.fn.hide = function() {
 HTML.query('.foo').hide();
 </pre>
 				</article>
-<!--
 				<article>
-					<h4>HTML.<a name="_.resolve">_.field</a>[<span class="variable">alias</span>] = <span class="variable">property</span>;</h4>
+					<h4>HTML.<a name="_.resolve">_.resolve</a>[<span class="variable">alias</span>] = <span class="variable">property</span>; <span class="since">0.10.0</span></h4>
 					<p>Occasionally, the verbosity of the DOM can, like any friend, become tiresome. You may create property aliases for <code>each</code>.</p>
 					<pre class="example">
 HTML._.resolve['-class'] = 'classList.remove';
 HTML._.resolve['+class'] = 'classList.add';
 HTML.query('.foo').each('-class', 'foo').each('+class', 'bar');
+
+HTML._.resolve.insert = 'insertAdjacentHTML';
+HTML.query('.neighbor').each('insert', 'afterend', '&amp;lt;span&amp;gt;Hello.&amp;lt;/span&amp;gt;');
 </pre>
 				</article>
--->
 			</div>
 			<hr>
 			<h2><a name="FAQ">FAQ</a></h2>
