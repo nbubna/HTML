@@ -79,36 +79,35 @@ HTML.body.header.textContent = "A Better Header!";
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<a name="find()">find</a>(<span class="variable">selector</span>) <span class="returns">Element|Array</span></h4>
-					<p><code>HTML.find</code> acts as a proxy for <code>querySelectorAll</code> and returns a <em>HTML'ified</em> node or array of nodes.</p>
+					<h4>HTML.<a name="query()">query</a>(<span class="variable">selector</span>) <span class="returns">Element|Array</span> <span class="since">0.10.0</span></h4>
+					<p><code>HTML.query</code> acts as a proxy for <code>querySelectorAll</code> and returns a <em>HTML'ified</em> node or array of nodes.</p>
 					<pre class="example">
-HTML.find("#example"); // single node returned
+HTML.query("#example"); // single node returned
 
-HTML.find(".example"); // Array of nodes returned if more than one, otherwise a node
+HTML.query(".example"); // Array of nodes returned if more than one, otherwise a node
 
-HTML.find("#example").h1.em; // chain on, man.
+HTML.query("#example").h1.em; // chain on, man.
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<span class="variable">tag...</span>.<a name="context.find()">find</a>(<span class="variable">selector</span>) <span class="returns">Element|Array</span></h4>
-					<p>Scoped <code>find</code>'s are also acceptable.</p>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="context.query()">query</a>(<span class="variable">selector</span>) <span class="returns">Element|Array</span> <span class="since">0.10.0</span></h4>
+					<p>Scoped <code>query</code>'s are also acceptable.</p>
 					<pre class="example">
-HTML.body.div.find(".example"); // contextual search!
+HTML.body.div.query(".example"); // contextual search!
 </pre>
 				</article>
 				<article>
 					<h4>HTML.<span class="variable">tag...</span>.<a name="each()">each</a>(<span class="variable">callback(<em>element</em>,<em>index</em>,<em>array</em>)</span>) <span class="returns">Element|Array|Object</span></h4>
 					<p>Use a the current node or array of nodes within a closure. Returns the element or list it was called on.</p>
 					<pre class="example">
-HTML.find('li').each(function(el, i, all) {
+HTML.query('li').each(function(el, i, all) {
 	el.textContent = "Item " + (i+1) + " of " + all.length;
 }); // returns li elements
 
 HTML.body.ul.each(function(ul) {// each works on single nodes too
-	ul.style.background = "blue";
-
-	// continue using the ul in here
-	ul.li;//...
+	if (ul.matches('.sunny')) {
+	    ul.li.style.background = "blue";
+	}
 }); // returns the ul
 </pre>
 				</article>
@@ -149,13 +148,13 @@ items.only(3, 9).each('add', 'button');// specific slice of elements
 					<h4>HTML.<span class="variable">tag...</span>.<a name="event(on)">event</a>(<span class="variable">type</span><span class="variable optional">, selector</span>, <span class="variable">function|property</span><span class="variable optional">, args</span>) <span class="returns">Element|Array</span></h4>
 					<p>Registers an event listener for the specified element (or list thereof) and returns the same element (or list thereof).</p>
 					<pre class="example">
-HTML.find('form').event('submit', function(e){ e.preventDefault(); });// the basics
+HTML.query('form').event('submit', function(e){ e.preventDefault(); });// the basics
 
 HTML.event('click', '.tab', openTabFn);// event delegation
 
 HTML.event('delete', '.item', 'remove');// each-style shortcut syntax!
 
-HTML.find('.item').event('click', 'classList.toggle', ['active']);// each-style property set
+HTML.query('.item').event('click', 'classList.toggle', ['active']);// each-style property set
 
 HTML.event('action', '.item', function(a, b, evt) {
 	console.log('listener for ', evt, ' was bound with:', a, b);
@@ -175,7 +174,7 @@ HTML.event(1, 'click', '.clickToHide', 'classList.add', ['hidden']);
 					<h4>HTML.<span class="variable">tag...</span>.<a name="event(off)">event</a>(0, <span class="variable">type</span><span class="variable optional">, selector</span>, <span class="variable">function|property</span>) <span class="returns">Element|Array</span></h4>
 					<p>Zero-out event listener(s) for the specified element(s) and return the same element(s).</p>
 					<pre class="example">
-var item = HTML.find('#item');
+var item = HTML.query('#item');
 item.event(0); // remove all event listeners for this element
 
 item.event(0, 'action');// remove all for 'action' event type
@@ -193,12 +192,12 @@ HTML.event(0, 'action', '.item', listenFn);// removes all for this type, selecto
 					<h4>HTML.<span class="variable">tag...</span>.<a name="event()">event</a>(<span class="variable">type</span><span class="variable optional">, data</span>) <span class="returns">Element|Array</span></h4>
 					<p>Dispatches an event on the element (or list of elements). Allows passing of data to be appended to event listeners' arguments (kept on the event as event.data)</p>
 					<pre class="example">
-HTML.find('#item').event('delete'); // trigger custom event on one item
+HTML.query('#item').event('delete'); // trigger custom event on one item
 
 HTML.event('action', '.item', function(e, a, b) {
 	console.log(e.data, 'became args:', a, b);
 });
-var items = HTML.find('.item'); // next, we trigger on multiple items
+var items = HTML.query('.item'); // next, we trigger on multiple items
 items.event('action', ['a','b']); // while adding a few args for the callback
 </pre>
 				</article>
@@ -234,7 +233,7 @@ HTML.body.add('ul>li{item}*10')
 					<h4>HTML.<span class="variable">tag...</span>.<a name="remove()">remove</a>() <span class="returns">undefined|Array</span></h4>
 					<p>Removes the specified node (or list thereof). Some browsers provide this natively for elements, for the few who don't this polyfills the gap and enables use of it on arrays of elements. When called on a list, it returns the list of deleted items.</p>
 					<pre class="example">
-HTML.find('.foo').remove();
+HTML.query('.foo').remove();
 </pre>
 				</article>
 				<article>
@@ -262,7 +261,7 @@ var text = nodes.only(function(node){ return node.nodeType == 3; });
 HTML._.fn.hide = function() {
 	return this.each('style.display', 'none');	
 };
-HTML.find('.foo').hide();
+HTML.query('.foo').hide();
 </pre>
 				</article>
 <!--
@@ -272,7 +271,7 @@ HTML.find('.foo').hide();
 					<pre class="example">
 HTML._.resolve['-class'] = 'classList.remove';
 HTML._.resolve['+class'] = 'classList.add';
-HTML.find('.foo').each('-class', 'foo').each('+class', 'bar');
+HTML.query('.foo').each('-class', 'foo').each('+class', 'bar');
 </pre>
 				</article>
 -->
@@ -291,9 +290,9 @@ HTML.find('.foo').each('-class', 'foo').each('+class', 'bar');
 				<p class="question">How does the DOM traversal work?</p>
 				<p>By defining lazy object getter functions for child tags. Again, we only do it lazily, on objects you access via this library, to keep the impact small.</p>
 				<p class="question">Aren't those long dot-traversal chains a bad idea when pages are so dynamic?</p>
-				<p>Yes, just as complex CSS selectors ares. Use <code>find()</code> with classes and ids when doing "whole page" work. Dot-traversal is best for small, well-defined node structures as found within components.</p>
+				<p>Yes, same rules as with all DOM selector interfaces. Use <code>query()</code> with classes and ids when doing "whole page" work. Dot-traversal is best for small, well-defined node structures.</p>
 				<p class="question">Functions that return either elements or arrays are bad. I saw it get ugly once!</p>
-				<p>Different contexts, different code, different techniques. Here's the rules for doing things right with HTML: 1) If you are certain you have one result (e.g. <code>HTML.find('#foo')</code>, <code>list.only(1)</code> or within <code>each(callback)</code> or <code>only(filter)</code> functions), then you can call DOM methods directly. 2) In all other situations, use HTML's functions (especially <code>each('property')</code>) to abstract the difference between one or more elements. You don't need to write branching code (like plain DOM) or use a wrapper object (like jQuery) to do that abstraction; HTML's functions do it superbly.</p>
+				<p>Different contexts, different code, different techniques. Here's the rules for doing things right with HTML: 1) If you are certain you have one result (e.g. <code>HTML.query('#foo')</code>, <code>list.only(1)</code> or within <code>each(callback)</code> or <code>only(filter)</code> functions), then you can call DOM methods directly. 2) In all other situations, use HTML's functions (especially <code>each('property')</code>) to abstract the difference between one or more elements. You don't need to write branching code (like plain DOM) or use a wrapper object (like jQuery) to do that abstraction; HTML's functions do it superbly.</p>
 				<p class="question">Hey, this is like <a href="http://dunxrion.github.io/voyeur.js">Voyeur.js</a>...</p>
 				<p>This began as a fork but became much different and much more. Adrian Cooney's delightful DOM traversal concept remains in play, as do the essentials of his lovely demo and site.</p>
 				<p class="question">I have a suggestion, where do I put it?</p>
@@ -311,7 +310,7 @@ HTML.find('.foo').each('-class', 'foo').each('+class', 'bar');
 <script src="script/ie8.min.js" type="text/javascript"></script>
 <script src="script/es5-shim.min.js" type="text/javascript"></script>
 <script src="script/es5-sham.min.js" type="text/javascript"></script>
-<script src="script/HTML.all.js" type="text/javascript"></script>
+<script src="script/HTML.js" type="text/javascript"></script>
 <script src="script/Sintax.js" type="text/javascript"></script>
 <script src="script/demo.js" type="text/javascript"></script>
 <script src="script/index.js" type="text/javascript"></script>
