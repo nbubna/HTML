@@ -51,10 +51,10 @@
 			<div class="features columns">
 				<div class="third">
 					<h3>Intuitive</h3>
-					<p>HTML lets you traverse, search and manipulate the DOM with intuitive, readable, consistent code.</p>
+					<p>HTML lets you navigate, manipulate and <i>use</i> the DOM with intuitive, readable, consistent code.</p>
 				</div><div class="third">
 					<h3>Powerful</h3>
-					<p>HTML's functions enable you to flexibly use native DOM features with brevity, clarity, and more power than ever.</p>
+					<p>HTML's functions enable you to flexibly use <b>all</b> native DOM features with brevity, clarity, and more power than ever.</p>
 				</div><div class="third">
 					<h3>Extensible</h3>
 					<p>HTML has a modular design that is easy to extend, adapt or customize to meet your needs.</p>
@@ -68,11 +68,12 @@
 			<div class="api">
 				<article>
 					<h4><a name="HTML">HTML</a> <span class="returns">document.documentElement</span></h4>
-					<p>The global HTML is the document <span class="tag">html</span> and all element tags queried via the dot operator are descendants. It's the root element!</p>
+					<p>The global HTML is the actual document root element and all element tags queried via the dot operator are descendants.</p>
 				</article>
 				<article>
 					<h4><a name="dot-traversal">HTML.<span class="variable">tag...</span></a> <span class="returns">Element|Array</span></h4>
-					<p>HTML allows you to access document elements via their tag name. If multiple elements of the same tag exist, a proper <em>array</em> of elements is returned otherwise an <code>Element</code> is returned. Chaining is fun.</p>
+					<p>HTML allows you to access document elements via their tag name. If multiple elements of the same tag exist, a proper <em>array</em> of elements is returned; otherwise, an <code>Element</code> is returned. Only the first/only node returned is "HTML-ified" (prepared
+					for further chaining).</p>
 					<pre class="example">
 HTML.body.header; // returns header element.
 HTML.body.header.textContent = "A Better Header!";
@@ -80,7 +81,7 @@ HTML.body.header.textContent = "A Better Header!";
 				</article>
 				<article>
 					<h4>HTML.<a name="query()">query</a>(<span class="variable">selector</span>) <span class="returns">Element|Array</span> <span class="since">0.10.0</span></h4>
-					<p><code>HTML.query</code> acts as a proxy for <code>querySelectorAll</code> and returns a <em>HTML'ified</em> node or array of nodes.</p>
+					<p><code>HTML.query</code> acts as a proxy for <code>querySelectorAll</code> and returns a node or array of nodes.</p>
 					<pre class="example">
 HTML.query("#example"); // single node returned
 
@@ -91,14 +92,14 @@ HTML.query("#example").h1.em; // chain on, man.
 				</article>
 				<article>
 					<h4>HTML.<span class="variable">tag...</span>.<a name="context.query()">query</a>(<span class="variable">selector</span>) <span class="returns">Element|Array</span> <span class="since">0.10.0</span></h4>
-					<p>Scoped <code>query</code>'s are also acceptable.</p>
+					<p>You can, of course, use <code>query</code> on any "HTML-ified" element or array of elements to search only the children thereof.</p>
 					<pre class="example">
 HTML.body.div.query(".example"); // contextual search!
 </pre>
 				</article>
 				<article>
 					<h4>HTML.<span class="variable">tag...</span>.<a name="each()">each</a>(<span class="variable">callback(<em>element</em>,<em>index</em>,<em>array</em>)</span>) <span class="returns">Element|Array|Object</span></h4>
-					<p>Use a the current node or array of nodes within a closure. Returns the element or list it was called on.</p>
+					<p>Use a the current node or array of nodes within a closure. Returns the element or array it was called on.</p>
 					<pre class="example">
 HTML.query('li').each(function(el, i, all) {
 	el.textContent = "Item " + (i+1) + " of " + all.length;
@@ -113,7 +114,7 @@ HTML.body.ul.each(function(ul) {// each works on single nodes too
 				</article>
 				<article>
 					<h4>HTML.<span class="variable">tag...</span>.<a name="each(property)">each</a>(<span class="variable">property</span> <span class="variable optional">, arguments</span>) <span class="returns">Element|Array|Object</span></h4>
-					<p>Get, set, or invoke the specified property of the current node or array of nodes. Returns either the array of retrieved/returned values or the element/list it was called on.</p>
+					<p>Get, set, or invoke the specified property of the current node or array of nodes. Returns either an array of retrieved/returned values or the element/list it was called on.</p>
 					<pre class="example">
 var items = HTML.body.ul.li;
 var texts = items.each('textContent'); // returns array of strings
