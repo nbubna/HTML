@@ -277,6 +277,16 @@ HTML._.resolve.insert = 'insertAdjacentHTML';
 HTML.query('.neighbor').each('insert', 'afterend', '&amp;lt;span&amp;gt;Hello.&amp;lt;/span&amp;gt;');
 </pre>
 				</article>
+				<article>
+					<h4>&lt;html <a name="data-html-reference">data-html-reference</a>="<span class="variable">reference</span>"&gt; <span class="since">0.10.1</span></h4>
+					<p>Rumor has it some people find 'HTML' annoying to type. If you prefer another name, you can configure it globally by setting a <code>data-html-reference</code> attribute on the root element. This, of course, doesn't apply to those loading via a tool like AMD or Browserify where HTML is not automatically set as a reference in the window.</p>
+					<pre class="example">
+&amp;lt;html data-html-reference="html"&amp;gt;&amp;lt;
+&amp;lt;script&amp;gt;
+  html.query('example-element').each('example-attribute','example value');
+&amp;lt;/script&amp;gt;
+</pre>
+				</article>
 			</div>
 			<hr>
 			<h2><a name="FAQ">FAQ</a></h2>
@@ -287,6 +297,10 @@ HTML.query('.neighbor').each('insert', 'afterend', '&amp;lt;span&amp;gt;Hello.&a
 				<p>Asking this question is kinda like saying that a very large swiss-army knife is the only tool you'll ever want. Some people prefer to <a href="http://component.io">collect specialized tools</a>. Some people don't like jQuery's wrapper obscuring the <a href="https://developer.mozilla.org/en-US/docs/Web/API">riches of</a> <a href="http://docs.webplatform.org/wiki/dom#Index_of_all_DOM_topics">the native DOM</a>. Some <a href="http:/github.com/nbubna">people</a> just like doing it this way. There's probably other reasons out there too, but hopefully that's enough to move on to more useful questions.</p>
 				<p class="question">Why give it the same name as, well, "HTML"?</p>
 				<p>Succint, self-documenting code is the ideal, and a self-descriptive name is also a great ward against feature creep. This HTML javascript library will not be about AJAX or JSON or CSS. It is about interacting with your document's HTML structure in javascript. To wit, it just fits.</p>
+				<p class="question">Isn't 'HTML.query' a lot more to type than '$'?</p>
+				<p>Yeah, but jQuery and clones kinda have a lock on that $ shortcut. Lucky for you, it's easy to make:<br>
+				<code>window.$ = HTML.query.bind(HTML);</code>
+				</p>
 				<p class="question">Which browsers does HTML support?</p>
 				<p>Only the modern ones: Firefox, Chrome, Safari, Opera, IE9+ and the like. With some <a href="https://github.com/kriskowal/es5-shim">judicious</a> <a href="https://github.com/WebReflection/ie8">polyfilling</a> you might get IE8 to support everything but the dot-traversal syntax, but i'd argue there are <a href="http://browsehappy.com">better solutions</a>.</p>
 				<p class="question">Isn't extending the DOM <a href="http://perfectionkills.com/whats-wrong-with-extending-the-dom/">a bad idea</a>?</p>
