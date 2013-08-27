@@ -72,8 +72,7 @@
 				</article>
 				<article>
 					<h4><a name="dot-traversal">HTML.<span class="variable">tag...</span></a> <span class="returns">Element|Array</span></h4>
-					<p>HTML allows you to access document elements via their tag name. If multiple elements of the same tag exist, a proper <em>array</em> of elements is returned; otherwise, an <code>Element</code> is returned. Only the first/only node returned is "HTML-ified" (prepared
-					for further chaining).</p>
+					<p>HTML allows you to access document elements via their tag name. If multiple elements of the same tag exist, a proper <em>array</em> of elements is returned; otherwise, an <code>Element</code> is returned. Only the first node returned is "HTML-ified" (prepared for further chaining).</p>
 					<pre class="example">
 HTML.body.header; // returns header element.
 HTML.body.header.textContent = "A Better Header!";
@@ -81,7 +80,7 @@ HTML.body.header.textContent = "A Better Header!";
 				</article>
 				<article>
 					<h4>HTML.<a name="query()">query</a>(<span class="variable">selector</span>) <span class="returns">Element|Array</span> <span class="since">0.10.0</span></h4>
-					<p><code>HTML.query</code> acts as a proxy for <code>querySelectorAll</code> and returns a node or array of nodes.</p>
+					<p><code>HTML.query</code> acts as a proxy for <code>querySelectorAll</code> and returns the selected element(s).</p>
 					<pre class="example">
 HTML.query("#example"); // single node returned
 
@@ -92,14 +91,14 @@ HTML.query("#example").h1.em; // chain on, man.
 				</article>
 				<article>
 					<h4>HTML.<span class="variable">tag...</span>.<a name="context.query()">query</a>(<span class="variable">selector</span>) <span class="returns">Element|Array</span> <span class="since">0.10.0</span></h4>
-					<p>You can, of course, use <code>query</code> on any "HTML-ified" element or array of elements to search only the children thereof.</p>
+					<p>You can, of course, use <code>query</code> on any "HTML-ified" element(s) to search only the children thereof.</p>
 					<pre class="example">
 HTML.body.div.query(".example"); // contextual search!
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<span class="variable">tag...</span>.<a name="each()">each</a>(<span class="variable">callback(<em>element</em>,<em>index</em>,<em>array</em>)</span>) <span class="returns">Element|Array|Object</span></h4>
-					<p>Use a the current node or array of nodes within a closure. Returns the element or array it was called on.</p>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="each()">each</a>(<span class="variable">callback(<em>element</em>,<em>index</em>,<em>array</em>)</span>) <span class="returns">Element|Array</span></h4>
+					<p>Use a the selected element(s) within a closure. Returns the element(s) it was called on.</p>
 					<pre class="example">
 HTML.query('li').each(function(el, i, all) {
 	el.textContent = "Item " + (i+1) + " of " + all.length;
@@ -113,8 +112,8 @@ HTML.body.ul.each(function(ul) {// each works on single nodes too
 </pre>
 				</article>
 				<article>
-					<h4>HTML.<span class="variable">tag...</span>.<a name="each(property)">each</a>(<span class="variable">property</span> <span class="variable optional">, arguments</span>) <span class="returns">Element|Array|Object</span></h4>
-					<p>Get, set, or invoke the specified property of the current node or array of nodes. Returns either an array of retrieved/returned values or the element/list it was called on.</p>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="each(property)">each</a>(<span class="variable">property</span> <span class="variable optional">, arguments</span>) <span class="returns">Element|Array</span></h4>
+					<p>Get, set, or invoke the specified property of the selected element(s). Returns either an array of retrieved/returned values or the element(s) it was called on.</p>
 					<pre class="example">
 var items = HTML.body.ul.li;
 var texts = items.each('textContent'); // returns array of strings
@@ -128,7 +127,7 @@ items.each('classList.add', 'foo');// adds 'foo' class to each item's classList,
 				</article>
 				<article>
 					<h4>HTML.<span class="variable">tag...</span>.<a name="only()">only</a>(<span class="variable">selector|index|filter|slice</span> <span class="variable optional">, endSlice</span>) <span class="returns">Element|Array</span></h4>
-					<p>When an array of elements is returned, <code>only</code> allows you to easily filter
+					<p>When you want to narrow down a selection, <code>only</code> allows you to easily filter
 					that list by selector, index, slice, or filtering function.</p>
 					<pre class="example">
 var items = HTML.body.ul.li; // all li elements
@@ -205,11 +204,11 @@ items.event('action', ['a','b']); // while adding a few args for the callback
 -->
 				<article>
 					<h4>HTML.<span class="variable">tag...</span>.<a name="add()">add</a>(<span class="variable">tag|Node|Array</span>) <span class="returns">Element|Array</span></h4>
-					<p>This automatically adds the specified tag or node (or list of those) to the element or array of elements on which it was called.</p>
+					<p>This automatically adds the specified tag or node (or list thereof) to the element(s) on which it was called.</p>
 					<pre class="example">
-HTML.body.add('div'); // returns a div element
+HTML.body.add('div'); // returns a newly added div element
 
-HTML.body.add('div').add('h1'); // returns a h1 element with div parent
+HTML.body.add('div').add('h1'); // returns the new h1 element (with div parent)
 
 HTML.head.add(document.createElement('div'));
 
