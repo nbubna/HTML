@@ -97,6 +97,15 @@ HTML.body.div.query(".example"); // contextual search!
 </pre>
 				</article>
 				<article>
+					<h4>HTML.<a name="query()">query</a>(<span class="variable">selector</span> <span class="variable optional">limit</span>) <span class="returns">Element|Array</span> <span class="since">0.11.0</span></h4>
+					<p><code>HTML.query</code> acts as a proxy for <code>querySelector</code> or <code>querySelectorAll</code> (as appropriate) and returns only the specified number of the selected element(s).</p>
+					<pre class="example">
+HTML.query("#example", 1); // single node or null returned
+
+HTML.body.query(".example", 5); // returns a single node if only one, otherwise an Array of 0-5 nodes
+</pre>
+				</article>
+				<article>
 					<h4>HTML.<span class="variable">tag...</span>.<a name="each()">each</a>(<span class="variable">callback(<em>element</em>,<em>index</em>,<em>array</em>)</span>) <span class="returns">Element|Array</span></h4>
 					<p>Use a the selected element(s) within a closure. Returns the element(s) it was called on.</p>
 					<pre class="example">
