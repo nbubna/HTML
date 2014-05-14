@@ -1,11 +1,11 @@
-/*! HTML - v0.10.0 - 2013-08-25
+/*! HTML - v0.12.0 - 2014-05-13
 * http://nbubna.github.io/HTML/
-* Copyright (c) 2013 ESHA Research; Licensed MIT, GPL */
+* Copyright (c) 2014 ESHA Research; Licensed MIT, GPL */
 (function(window, document, Observer) {
     "use strict";
 
     var _ = {
-        version: "0.10.0",
+        version: "0.12.0",
         slice: Array.prototype.slice,
         list: function(list, force) {
             if (list.length === 1){ return _.node(list[0], force); }
@@ -90,12 +90,17 @@
                 try{ window.console.warn('find() is deprecated. Please use query().'); }
                 finally{ return this.query.apply(this, arguments); }
             },
-            query: function(selector) {
+            query: function(selector, count) {
                 var self = this.forEach ? this : [this];
-                for (var list=[], i=0, m=self.length; i<m; i++) {
-                    var nodes = self[i].querySelectorAll(selector);
-                    for (var j=0, l=nodes.length; j<l; j++) {
-                        list.push(nodes[j]);
+                for (var list=[], i=0, m=self.length; i<m && (!count || list.length < count); i++) {
+                    if (count === list.length + 1) {
+                        var node = self[i].querySelector(selector);
+                        if (node){ list.push(node); }
+                    } else {
+                        var nodes = self[i].querySelectorAll(selector);
+                        for (var j=0, l=nodes.length; j<l && (!count || list.length < count); j++) {
+                            list.push(nodes[j]);
+                        }
                     }
                 }
                 return _.list(list);
@@ -110,6 +115,18 @@
                             function(el){ return el.matches(b); }
                         )
                 );
+            },
+            all: function(prop, inclusive, _results) {
+                _results = _results || [];
+                var self = this.forEach ? this : [this];
+                if (inclusive){ _results.push.apply(_results, self); }
+                for (var i=0, m=self.length; i<m; i++) {
+                    var node = self[i];
+                    if (prop in node && node[prop]) {
+                        HTML.ify(node[prop]).all(prop, true, _results);
+                    }
+                }
+                return _.list(_results.filter(_.unique));
             }
         },
         resolve: function(_key, _el, args, i) {
@@ -237,107 +254,12 @@
 
 })(document, document.documentElement._);
 
-(function(document, HTML) {
-    "use strict";
-
-    var _ = HTML._,
-    event = _.fn.event = function() {
-        try{ window.console.warn('event() is deprecated. https://github.com/nbubna/HTML/issues/1'); } catch(e){}
-        var args = _.slice.call(arguments),
-            self = this,
-            action,
-            ret = [];
-        if (!args[0]) {// first is falsy
-            action = 'off';
-            args.shift();
-            if (typeof args[1] === "function"){ args.splice(1, 0, false); }// selector omitted
-        } else if (!args[1] || args[1].forEach) {// second is absent or data
-            action = 'trigger';
-        } else {
-            action = 'on';
-            if (args[0] === 1){ args[4] = args.shift(); }// first is _once
-            if (!args[2] || args[2].forEach) {// selector omitted
-                args.splice(1, 0, false);
-                args.splice(4, 1);// put _once back as fifth arg
-            }
-            args[3] = (args[3]||[]).slice(0);// don't let listener data change
-            if (typeof args[2] === "string") {// third is _prop for each
-                args[5] = args[2];
-                args[3].unshift(args[2]);// _prop becomes first item in data
-                args[2] = _.fn.each;// and is replace by each()
-            }
-        }
-        (args[0]||'').split(' ').forEach(function(type) {
-            args[0] = type;
-            self.each(function(node) {
-                ret.push(event[action].apply(node, args));
-            });
-        });
-        return action === 'trigger' ? ret.length === 1 ? ret[0] : ret : this;
-    },
-    concat = Array.prototype.concat;
-
-    event.on = function(type, selector, fn, data, _once, _prop) {
-        var listener = function(e) {
-            event.heard.call(this, e, selector, fn, data, _once, _prop);
-        };
-        this.addEventListener(type, listener);
-        _.define(this, '_evt', []);
-        this._evt.push([type, selector, _prop||fn, listener]);
-    };
-    event.off = function(type, selector, fn) {
-        if (this._evt) {
-            for (var i=0; i<this._evt.length; i++) {
-                var evt = this._evt[i];
-                if ((!type || evt[0] === type) &&
-                    (!selector || evt[1] === selector) &&
-                    (!fn || evt[2] === fn)) {
-                    this.removeEventListener(evt[0], evt[3]);
-                    this._evt.splice(i--, 1);
-                }
-            }
-        } else {
-            this.removeEventListener(type, fn);
-        }
-    };
-    event.trigger = function(type, data) {
-        var e = document.createEvent('HTMLEvents');
-        e.initEvent(type, true, true);
-        if (data){ e.data = data; }
-        this.dispatchEvent(e);
-        return e;
-    };
-
-    event.heard = function(e, selector, fn, data, _once, _prop) {
-        var self = selector ? event.closest.call(e, selector) : this;
-        if (self) {
-            var args = [e];
-            if (e.data){ args.push(e.data); }
-            if (data){ args.unshift(data); }
-            _.node(e.target);
-            _.define(e, 'closest', event.closest);
-            if (_once){ event.off.call(this, e.type, selector, _prop || fn); }
-            fn.apply(self, concat.apply([], args));
-        }
-    };
-    event.closest = function(selector) {
-        var el = this.target;
-        while (el && el.matches) {
-            if (el.matches(selector)) {
-                return _.node(el);
-            }
-            el = el.parentNode;
-        }
-    };
-
-})(document, document.documentElement);
-
 (function(document, _) {
     "use strict";
 
     var add = _.fn.add;
     add.create = function(node, code, ref) {
-        var parts = code.split(add.emmetRE()),
+        var parts = code.match(add.emmetRE()).filter(Boolean),
             root = document.createDocumentFragment(),
             el = document.createElement(parts[0]);
         root.appendChild(el);
@@ -349,8 +271,9 @@
         return el;
     };
     add.emmetRE = function() {
-        var chars = '\\'+Object.keys(add.emmet).join('|\\');
-        return new RegExp('(?='+chars+')','g');
+        var m = Object.keys(add.emmet).join('');
+        var regex = '[a-z'+m+']{0,1}(?:"[^"]*"|[^"'+m+']){0,}';
+        return new RegExp(regex, 'g');
     };
     add.emmet = {
         '#': function(id) {
@@ -359,7 +282,9 @@
         '.': function(cls) {
             var list = this.getAttribute('class') || '';
             list = list + (list ? ' ' : '') + cls;
-            this.setAttribute('class', list);
+            if (list.length) {
+                this.setAttribute('class', list);
+            }
         },
         '[': function(attrs) {
             attrs = attrs.substr(0, attrs.length-1).match(/(?:[^\s"]+|"[^"]*")+/g);
