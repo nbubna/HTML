@@ -135,6 +135,18 @@ items.each('classList.add', 'foo');// adds 'foo' class to each item's classList,
 </pre>
 				</article>
 				<article>
+					<h4>HTML.<span class="variable">tag...</span>.<a name="all(property)">all</a>(<span class="variable">property</span> <span class="variable optional">, includeSelf</span>) <span class="returns">Element|Array</span></h4>
+					<p>Recurses through the DOM tree via the specified property, gathering the nodes as it goes to be returned. This makes it easy to gather all an elements ancestors, descendants, next/previous siblings, etc.</p>
+					<pre class="example">
+var focused = document.activeElement.all('parentElement', true);// returns Array of elements containing the current focus, including the active element.
+
+var first = HTML.body.div.only(0);
+var nextAll = first.all('nextElementSibling'); // returns Array of all subsequent sibling elements.
+
+var all = HTML.body.all('children'); // all descendants of the <body> tag
+</pre>
+				</article>
+				<article>
 					<h4>HTML.<span class="variable">tag...</span>.<a name="only()">only</a>(<span class="variable">selector|index|filter|slice</span> <span class="variable optional">, endSlice</span>) <span class="returns">Element|Array</span></h4>
 					<p>When you want to narrow down a selection, <code>only</code> allows you to easily filter
 					that list by selector, index, slice, or filtering function.</p>

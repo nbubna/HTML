@@ -8,6 +8,7 @@
 			"HTML.body.div.section.only(0)",
 			"HTML.body.div.section.only('#full').ul.li",
 			"HTML.body.div.section.only('#full').ul.li\n  .each('id', 'item${i}')",
+			"HTML.query('#full li').all('parentElement')",
 			"HTML.query('#empty')",
 			"HTML.query('#empty').add('h1')",
 			"HTML.query('#empty').add('ul>li{item}*5')",
