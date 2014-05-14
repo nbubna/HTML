@@ -112,6 +112,18 @@
                             function(el){ return el.matches(b); }
                         )
                 );
+            },
+            all: function(prop, inclusive, _results) {
+                _results = _results || [];
+                var self = this.forEach ? this : [this];
+                if (inclusive){ _results.push.apply(_results, self); }
+                for (var i=0, m=self.length; i<m; i++) {
+                    var node = self[i];
+                    if (prop in node && node[prop]) {
+                        HTML.ify(node[prop]).all(prop, true, _results);
+                    }
+                }
+                return _.list(_results.filter(_.unique));
             }
         },
         resolve: function(_key, _el, args, i) {

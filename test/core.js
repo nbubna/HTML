@@ -309,5 +309,25 @@ Test assertions:
 		ok(HTML.query("section").div, "should be present");
 	});
 
+	module("all");
+
+    test("parents", function() {
+        var divs = HTML.query('section > div'),
+            parents = divs.all('parentElement');
+        equal(parents.length, 3);
+    });
+
+    test("nextElementSibling, inclusive", function() {
+        var div = HTML.query('#first'),
+            siblings = div.all('nextElementSibling', true);
+        equal(siblings.length, 5);
+    });
+
+    test("children", function() {
+        var ggp = HTML.query('#qunit-fixture');
+        var desc = ggp.all('children');
+        equal(desc.length, 3);
+    });
+
 }(HTML));
 
