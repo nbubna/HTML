@@ -152,65 +152,6 @@ items.only(function(o,i){ return !(i%2); }); // filter function returns even ele
 items.only(3, 9).each('add', 'button');// specific slice of elements
 </pre>
 				</article>
-<!--
-				<article>
-					<h4>HTML.<span class="variable">tag...</span>.<a name="event(on)">event</a>(<span class="variable">type</span><span class="variable optional">, selector</span>, <span class="variable">function|property</span><span class="variable optional">, args</span>) <span class="returns">Element|Array</span></h4>
-					<p>Registers an event listener for the specified element (or list thereof) and returns the same element (or list thereof).</p>
-					<pre class="example">
-HTML.query('form').event('submit', function(e){ e.preventDefault(); });// the basics
-
-HTML.event('click', '.tab', openTabFn);// event delegation
-
-HTML.event('delete', '.item', 'remove');// each-style shortcut syntax!
-
-HTML.query('.item').event('click', 'classList.toggle', ['active']);// each-style property set
-
-HTML.event('action', '.item', function(a, b, evt) {
-	console.log('listener for ', evt, ' was bound with:', a, b);
-}, ['bind', 'me']);
-</pre>
-				</article>
-				<article>
-					<h4>HTML.<span class="variable">tag...</span>.<a name="event(once)">event</a>(1, <span class="variable">type</span><span class="variable optional">, selector</span>, <span class="variable">function|property</span><span class="variable optional">, args</span>) <span class="returns">Element|Array</span></h4>
-					<p>Adds a one-time-only event listener for the specified element (or list thereof) and returns the same element (or list thereof).</p>
-					<pre class="example">
-HTML.event(1, 'action', '.item', doActionFn);
-
-HTML.event(1, 'click', '.clickToHide', 'classList.add', ['hidden']);
-</pre>
-				</article>
-				<article>
-					<h4>HTML.<span class="variable">tag...</span>.<a name="event(off)">event</a>(0, <span class="variable">type</span><span class="variable optional">, selector</span>, <span class="variable">function|property</span>) <span class="returns">Element|Array</span></h4>
-					<p>Zero-out event listener(s) for the specified element(s) and return the same element(s).</p>
-					<pre class="example">
-var item = HTML.query('#item');
-item.event(0); // remove all event listeners for this element
-
-item.event(0, 'action');// remove all for 'action' event type
-
-item.event(0, 'action', listenFn);// remove this 'action' listener for this element
-
-item.event(0, 'action', null, 'style.display');// remove an each-style listener
-
-HTML.event(0, 'action', '.item');// remove for 'action' type whose target matches '.item'
-
-HTML.event(0, 'action', '.item', listenFn);// removes all for this type, selector, fn
-</pre>
-				</article>
-				<article>
-					<h4>HTML.<span class="variable">tag...</span>.<a name="event()">event</a>(<span class="variable">type</span><span class="variable optional">, data</span>) <span class="returns">Element|Array</span></h4>
-					<p>Dispatches an event on the element (or list of elements). Allows passing of data to be appended to event listeners' arguments (kept on the event as event.data)</p>
-					<pre class="example">
-HTML.query('#item').event('delete'); // trigger custom event on one item
-
-HTML.event('action', '.item', function(e, a, b) {
-	console.log(e.data, 'became args:', a, b);
-});
-var items = HTML.query('.item'); // next, we trigger on multiple items
-items.event('action', ['a','b']); // while adding a few args for the callback
-</pre>
-				</article>
--->
 				<article>
 					<h4>HTML.<span class="variable">tag...</span>.<a name="add()">add</a>(<span class="variable">tag|Node|Array</span>) <span class="returns">Element|Array</span></h4>
 					<p>This automatically adds the specified tag or node (or list thereof) to the element(s) on which it was called.</p>
