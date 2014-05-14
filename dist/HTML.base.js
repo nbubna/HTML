@@ -1,11 +1,11 @@
-/*! HTML - v0.11.1 - 2014-04-08
+/*! HTML - v0.12.0 - 2014-05-13
 * http://nbubna.github.io/HTML/
 * Copyright (c) 2014 ESHA Research; Licensed MIT, GPL */
 (function(window, document, Observer) {
     "use strict";
 
     var _ = {
-        version: "0.11.1",
+        version: "0.12.0",
         slice: Array.prototype.slice,
         list: function(list, force) {
             if (list.length === 1){ return _.node(list[0], force); }
@@ -115,6 +115,18 @@
                             function(el){ return el.matches(b); }
                         )
                 );
+            },
+            all: function(prop, inclusive, _results) {
+                _results = _results || [];
+                var self = this.forEach ? this : [this];
+                if (inclusive){ _results.push.apply(_results, self); }
+                for (var i=0, m=self.length; i<m; i++) {
+                    var node = self[i];
+                    if (prop in node && node[prop]) {
+                        HTML.ify(node[prop]).all(prop, true, _results);
+                    }
+                }
+                return _.list(_results.filter(_.unique));
             }
         },
         resolve: function(_key, _el, args, i) {

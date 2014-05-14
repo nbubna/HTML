@@ -15,7 +15,7 @@ Download: [HTML.min.js][full-min] or [HTML.js][full] [![Build Status](https://tr
 [NPM][npm]: `npm install html.js`   
 [Component][component]: `component install nbubna/HTML`  
 
-Includes [dot-traversal][dot], [`query()`][query], [`each()`][each], [`only()`][only], [`add()`][add], [`remove()`][remove], [`HTML.ify()`][ify] and [emmet abbreviations][abbr] in [`add()`][add-emmet]:  
+Includes [dot-traversal][dot], [`query()`][query], [`each()`][each], [`only()`][only], [`all()`][all], [`add()`][add], [`remove()`][remove], [`HTML.ify()`][ify] and [emmet abbreviations][abbr] in [`add()`][add-emmet]:  
 * [HTML.core.js][core]
 * [HTML.alter.js][alter]
 * [HTML.emmet.js][emmet]
@@ -37,6 +37,7 @@ Includes [dot-traversal][dot], [`query()`][query], [`each()`][each], [`only()`][
 [query]: http://nbubna.github.io/HTML#query()
 [each]: http://nbubna.github.io/HTML#each()
 [only]: http://nbubna.github.io/HTML#only()
+[all]: http://nbubna.github.io/HTML#all()
 [add]: http://nbubna.github.io/HTML#add()
 [add-emmet]: http://nbubna.github.io/HTML#add(emmet)
 [remove]: http://nbubna.github.io/HTML#remove()
@@ -47,7 +48,7 @@ Includes [dot-traversal][dot], [`query()`][query], [`each()`][each], [`only()`][
 
 Download: [HTML.min.js][base-min]  or  [HTML.js][base]  
 
-Includes [dot-traversal][dot], [`query()`][query], [`each()`][each], [`only()`][only], [`add()`][add], [`remove()`][remove] and [`HTML.ify()`][ify]:
+Includes [dot-traversal][dot], [`query()`][query], [`each()`][each], [`only()`][only], [`all()`][all], [`add()`][add], [`remove()`][remove] and [`HTML.ify()`][ify]:
 * [HTML.core.js][core]
 * [HTML.alter.js][alter]
 
@@ -55,7 +56,7 @@ Includes [dot-traversal][dot], [`query()`][query], [`each()`][each], [`only()`][
 
 Download: [HTML.min.js][core-min]  or  [HTML.js][core]  
 
-Includes [dot-traversal][dot], [`query()`][query], [`each()`][each], [`only()`][only] and [`HTML.ify()`][ify]:
+Includes [dot-traversal][dot], [`query()`][query], [`each()`][each], [`only()`][only], [`all()`][all] and [`HTML.ify()`][ify]:
 * [HTML.core.js][core]
 
 
@@ -67,6 +68,7 @@ Includes [dot-traversal][dot], [`query()`][query], [`each()`][each], [`only()`][
 * 2013-08-23 [v0.10.0][] ([Component fixes][8], [s/find/query][7], [deprecate undocumented event()][1])
 * 2013-08-25 [v0.10.2][] (data-html-reference and test/alter.js fix)
 * 2014-03-10 [v0.11.0][] (deprecated event.js out of main artifact, query limit parameter)
+* 2014-05-13 [v0.12.0][] (all() function)
 
 [v0.9.0]: https://github.com/nbubna/HTML/tree/0.9.0
 [v0.9.1]: https://github.com/nbubna/HTML/tree/0.9.1
@@ -75,6 +77,7 @@ Includes [dot-traversal][dot], [`query()`][query], [`each()`][each], [`only()`][
 [v0.10.0]: https://github.com/nbubna/HTML/tree/0.10.0
 [v0.10.2]: https://github.com/nbubna/HTML/tree/0.10.2
 [v0.11.0]: https://github.com/nbubna/HTML/tree/0.11.0
+[v0.12.0]: https://github.com/nbubna/HTML/tree/0.12.0
 [1]: https://github.com/nbubna/HTML/issues/1
 [2]: https://github.com/nbubna/HTML/issues/2
 [7]: https://github.com/nbubna/HTML/issues/7
