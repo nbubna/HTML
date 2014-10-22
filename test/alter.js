@@ -36,6 +36,16 @@
 		node.remove();
 	});
 
+  test("add text node", function() {
+    var node = document.createTextNode('text'),
+      container = HTML.body.add(document.createElement('b'));
+    equal(container.add(node), node, "added node and got it back");
+    ok(container.textContent === 'text' && 'each' in node, 'added node has been assimilated');
+    node.remove();
+    ok(container.textContent === '', 'text is gone');
+    container.remove();
+  });
+
 	test("add list", function() {
 		var list = ['nav', document.createElement('nav'), ['nav']];
 		equal(HTML.body.add(list).length, 3, 'added three nav elements');

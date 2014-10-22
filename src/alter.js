@@ -10,7 +10,7 @@
         if (typeof arg === "string") {// turn arg into an appendable
             return add.create(node, arg, ref);
         }
-        if ('length' in arg) {// array of append-ables
+        if (!(arg instanceof Node) && 'length' in arg) {// array of append-ables
             var ret = [];
             for (var i=0,m=arg.length; i<m; i++) {
                 ret.push(add.all(node, arg[i], ref));

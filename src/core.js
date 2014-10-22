@@ -79,7 +79,7 @@
                     }
                 }
                 return !results[0] && results[0] !== false ? this :
-                    results[0].matches ? _.list(results.filter(_.unique)) :
+                    results[0] instanceof Node ? _.list(results.filter(_.unique)) :
                     //self.length === 1 ? results[0] :
                     results;
             },
