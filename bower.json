@@ -1,6 +1,6 @@
 {
     "name": "HTML",
-    "version": "0.12.0",
+    "version": "0.12.1",
     "main": "dist/HTML.min.js",
     "description": "An intuitive, extensible way to work directly with the DOM.",
     "keywords": [

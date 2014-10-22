@@ -1,4 +1,4 @@
-/*! HTML - v0.12.0 - 2014-05-13
+/*! HTML - v0.12.1 - 2014-10-22
 * http://nbubna.github.io/HTML/
 * Copyright (c) 2014 ESHA Research; Licensed MIT, GPL */
 (function(document, _) {
@@ -13,7 +13,7 @@
         if (typeof arg === "string") {// turn arg into an appendable
             return add.create(node, arg, ref);
         }
-        if ('length' in arg) {// array of append-ables
+        if (!(arg instanceof Node) && 'length' in arg) {// array of append-ables
             var ret = [];
             for (var i=0,m=arg.length; i<m; i++) {
                 ret.push(add.all(node, arg[i], ref));

@@ -69,6 +69,7 @@ Includes [dot-traversal][dot], [`query()`][query], [`each()`][each], [`only()`][
 * 2013-08-25 [v0.10.2][] (data-html-reference and test/alter.js fix)
 * 2014-03-10 [v0.11.0][] (deprecated event.js out of main artifact, query limit parameter)
 * 2014-05-13 [v0.12.0][] (all() function)
+* 2014-10-22 [v0.12.1][] ([add(textNode)][16])
 
 [v0.9.0]: https://github.com/nbubna/HTML/tree/0.9.0
 [v0.9.1]: https://github.com/nbubna/HTML/tree/0.9.1
@@ -78,10 +79,12 @@ Includes [dot-traversal][dot], [`query()`][query], [`each()`][each], [`only()`][
 [v0.10.2]: https://github.com/nbubna/HTML/tree/0.10.2
 [v0.11.0]: https://github.com/nbubna/HTML/tree/0.11.0
 [v0.12.0]: https://github.com/nbubna/HTML/tree/0.12.0
+[v0.12.1]: https://github.com/nbubna/HTML/tree/0.12.1
 [1]: https://github.com/nbubna/HTML/issues/1
 [2]: https://github.com/nbubna/HTML/issues/2
 [7]: https://github.com/nbubna/HTML/issues/7
 [8]: https://github.com/nbubna/HTML/issues/8
+[16]: https://github.com/nbubna/HTML/issues/16
 
 Thanks to Adrian Cooney for the inspiration and [starting point][voyeur] for this project.
 
