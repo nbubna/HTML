@@ -13,6 +13,7 @@ Please check out the [demo][demo], the [API][api] and the [F.A.Q.][faq].
 Download: [HTML.min.js][full-min] or [HTML.js][full] [![Build Status](https://travis-ci.org/nbubna/HTML.png?branch=master)](https://travis-ci.org/nbubna/HTML)  
 [Bower][bower]: `bower install HTML`  
 [NPM][npm]: `npm install html.js`   
+[spm][spm]: `spm install html.js`   
 [Component][component]: `component install nbubna/HTML`  
 
 Includes [dot-traversal][dot], [`query()`][query], [`each()`][each], [`only()`][only], [`all()`][all], [`add()`][add], [`remove()`][remove], [`HTML.ify()`][ify] and [emmet abbreviations][abbr] in [`add()`][add-emmet]:  
@@ -21,6 +22,7 @@ Includes [dot-traversal][dot], [`query()`][query], [`each()`][each], [`only()`][
 * [HTML.emmet.js][emmet]
 
 [npm]: https://npmjs.org/package/html.js
+[spm]: http://spm.io/package/html.js
 [bower]: http://bower.io/
 [component]: http://component.io/
 

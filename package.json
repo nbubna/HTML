@@ -54,5 +54,8 @@
     "element",
     "emmet",
     "native"
-  ]
+  ],
+  "spm": {
+    "main": "dist/HTML.js"
+  }
 }
